@@ -2,11 +2,13 @@ package com.bat.qmall.mp.controller;
 
 import com.bat.qmall.mp.mapper.MpMapper;
 import com.bat.shop.api.bean.User;
+import com.bat.shop.common.commons.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,10 +26,15 @@ public class MpController {
 	@Autowired
 	MpMapper mpMapper;
 
+	@RequestMapping("/index")
+	public String index(){
+		return "index.html";
+	}
+
 
 	@RequestMapping("/ok")
 	@ResponseBody
-	public User  ok(){
+	public User ok(){
 		User user = mpMapper.selectById(8);
 
 
