@@ -1,16 +1,13 @@
 package com.bat.qmall.mp.controller;
 
-import com.bat.qmall.mp.mapper.MpMapper;
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.bat.shop.api.bean.User;
-import com.bat.shop.common.commons.Msg;
+import com.bat.shop.api.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -23,8 +20,8 @@ import java.util.List;
 @Controller
 public class MpController {
 
-	@Autowired
-	MpMapper mpMapper;
+	@Reference(check = false)
+	UserService userService;
 
 	@RequestMapping("/index")
 	public String index(){
@@ -35,18 +32,19 @@ public class MpController {
 	@RequestMapping("/ok")
 	@ResponseBody
 	public User ok(){
-		User user = mpMapper.selectById(8);
+		System.out.println("userService = " + userService);
+		User user = userService.selectById(8);
 
 
-		PageHelper.startPage(1,2);
-		List<User> users = mpMapper.selectList(null);
+		/*PageHelper.startPage(2,2);
+		List<User> users = userService.selectAll();
 		PageInfo<User> pageInfo = new PageInfo<>(users,5);
 		System.out.println("pageInfo = " + pageInfo);
 
 		for (User user1 : pageInfo.getList()) {
 			System.out.println("user1 = " + user1);
 		}
-
+*/
 		return user;
 	}
 
