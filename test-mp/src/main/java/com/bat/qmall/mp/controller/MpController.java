@@ -32,11 +32,9 @@ public class MpController {
 	@RequestMapping("/ok")
 	@ResponseBody
 	public User ok(){
-		System.out.println("userService = " + userService);
 		User user = userService.selectById(8);
 
-
-		/*PageHelper.startPage(2,2);
+		PageHelper.startPage(2,2);
 		List<User> users = userService.selectAll();
 		PageInfo<User> pageInfo = new PageInfo<>(users,5);
 		System.out.println("pageInfo = " + pageInfo);
@@ -44,7 +42,7 @@ public class MpController {
 		for (User user1 : pageInfo.getList()) {
 			System.out.println("user1 = " + user1);
 		}
-*/
+
 		return user;
 	}
 

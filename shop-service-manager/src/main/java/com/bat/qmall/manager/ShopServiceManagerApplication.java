@@ -1,4 +1,4 @@
-package com.bat.qmall.service;
+package com.bat.qmall.manager;
 
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.mybatis.spring.annotation.MapperScan;
@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @MapperScan("com.bat.shop.api.mapper")
 @EnableDubbo
-public class ServiceApplication {
+public class ShopServiceManagerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ServiceApplication.class, args);
+		SpringApplication.run(ShopServiceManagerApplication.class, args);
 	}
 
 }

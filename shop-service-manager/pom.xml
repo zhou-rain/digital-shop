@@ -7,8 +7,8 @@
         <artifactId>shop-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>shop-service</artifactId>
-    <description>暴露整个项目的服务</description>
+    <artifactId>shop-service-manager</artifactId>
+    <name>shop-service-manager</name>
 
     <dependencies>
 
@@ -16,22 +16,16 @@
             <groupId>com.bat.qmall</groupId>
             <artifactId>shop-api</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.mybatis</groupId>
-                    <artifactId>mybatis</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mybatis</groupId>
-                    <artifactId>mybatis-spring</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
+
+
         <dependency>
             <groupId>com.bat.qmall</groupId>
             <artifactId>shop-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

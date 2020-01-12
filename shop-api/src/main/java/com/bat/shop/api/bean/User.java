@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * @author: zhouR
@@ -14,8 +12,6 @@ import lombok.NoArgsConstructor;
  * @function:
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 //@TableName("tb_user")	//如果表名与数据库不满足驼峰，需要加此注解， 可在全局配置文件中配置
 public class User extends Model<User> {
 

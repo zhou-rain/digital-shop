@@ -1,4 +1,4 @@
-package com.bat.qmall.service.impl.ums;
+package com.bat.qmall.manager.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.bat.shop.api.bean.User;
@@ -11,12 +11,12 @@ import java.util.List;
 
 /**
  * @author: zhouR
- * @date: Create in 2020/1/11 - 17:27
+ * @date: Create in 2020/1/12 - 23:41
  * @function:
  */
 @Service
 @Component
-public class UserServiceImpl implements UserService {
+public class MemberServiceImpl implements UserService {
 
 	@Autowired
 	UserMapper userMapper;
