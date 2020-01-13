@@ -1,4 +1,4 @@
-package com.bat.qmall.mp.controller;
+package com.bat.qmall.cart.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.bat.shop.api.bean.User;
@@ -7,22 +7,20 @@ import com.bat.shop.common.commons.Msg;
 import com.bat.shop.common.utils.WebUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-
 /**
  * @author: zhouR
- * @date: Create in 2020/1/10 - 19:26
+ * @date: Create in 2020/1/13 - 14:56
  * @function:
  */
-@Controller
-public class MpController {
-
+@RestController
+public class TetsCon {
 	@Reference(check = false)
 	UserService userService;
 
@@ -69,8 +67,5 @@ public class MpController {
 
 		return Msg.success().add("list",pageInfo);
 	}
-
-
-
 
 }

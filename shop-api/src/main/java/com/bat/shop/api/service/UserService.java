@@ -13,4 +13,5 @@ public interface UserService {
 	User selectById(int i);
 
 	List<User> selectAll();
+
 }

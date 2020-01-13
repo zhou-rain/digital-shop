@@ -7,8 +7,8 @@
         <artifactId>shop-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>shop-service-manager</artifactId>
-    <name>shop-service-manager</name>
+    <artifactId>shop-order-service</artifactId>
+    <name>shop-order-service</name>
 
     <dependencies>
 

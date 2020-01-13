@@ -84,26 +84,13 @@ public class WebUtil {
 
 
 
+	public static String getCurrentInfo(HttpServletRequest request){
 
-	/**
-	 * 每次登陆都给用户分配一个token
-	 * 获取用户ip地址
-	 *
-	 * 拼上当前时间戳
-	 * MD5加密后返回字符串
-	 *
-	 * 以后每次ajax访问都带上token和用户id，通过拦截器进行验证
-	 * @return token
-	 */
-	public static String getToken(String ipaddr,Integer userId){
-
-		StringBuffer token = new StringBuffer();
-		String uuid = UUID.randomUUID().toString().replaceAll(" ","").replaceAll("-","");
-		token.append(uuid, 0, 8);//截取uuid前8位
-
-		String digest = MD5Util.digest(ipaddr + userId);
-		token.append(digest);
-		return token.toString();
+		String requestURI = request.getRequestURI();
+		int port = request.getServerPort();
+		String contextPath = request.getContextPath();
+		String ret ="当前项目："+contextPath+":"+port+requestURI;
+		return ret;
 	}
 
 

@@ -78,11 +78,18 @@
         <dubbo-version>0.2.0</dubbo-version>
         <zkclient-version>0.1</zkclient-version>
 
+        <fastdfs-client.version>1.27</fastdfs-client.version>
+
     </properties>
 
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+            </dependency>
 
             <!-- AOP相关包 -->
             <dependency>
