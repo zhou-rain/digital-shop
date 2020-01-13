@@ -1,9 +1,9 @@
 package com.bat.qmall.manager.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.bat.shop.api.bean.User;
-import com.bat.shop.api.mapper.UserMapper;
-import com.bat.shop.api.service.UserService;
+import com.bat.shop.api.bean.ums.UmsMember;
+import com.bat.shop.api.mapper.UmsMemberMapper;
+import com.bat.shop.api.service.ums.UmsMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,20 +16,20 @@ import java.util.List;
  */
 @Service
 @Component
-public class MemberServiceImpl implements UserService {
+public class MemberServiceImpl implements UmsMemberService {
 
 	@Autowired
-	UserMapper userMapper;
+	UmsMemberMapper userMapper;
 
 	@Override
-	public User selectById(int i) {
+	public UmsMember selectById(int i) {
 		System.out.println("userMapper = " + userMapper);
 
 		return userMapper.selectById(i);
 	}
 
 	@Override
-	public List<User> selectAll() {
+	public List<UmsMember> selectAll() {
 		return userMapper.selectList(null);
 	}
 }

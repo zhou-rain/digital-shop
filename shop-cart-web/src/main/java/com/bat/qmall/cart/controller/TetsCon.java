@@ -1,8 +1,8 @@
 package com.bat.qmall.cart.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.bat.shop.api.bean.User;
-import com.bat.shop.api.service.UserService;
+import com.bat.shop.api.bean.ums.UmsMember;
+import com.bat.shop.api.service.ums.UmsMemberService;
 import com.bat.shop.common.commons.Msg;
 import com.bat.shop.common.utils.WebUtil;
 import com.github.pagehelper.PageHelper;
@@ -21,34 +21,27 @@ import java.util.List;
  */
 @RestController
 public class TetsCon {
+
 	@Reference(check = false)
-	UserService userService;
-
-	@RequestMapping("/index")
-	public String index(){
-		return "index.html";
-	}
-
+	UmsMemberService userService;
 
 	@RequestMapping("/ok")
 	@ResponseBody
-	public User ok(HttpServletRequest request){
+	public UmsMember ok(HttpServletRequest request){
 		String currentInfo = WebUtil.getCurrentInfo(request);
 
 
-		User user = userService.selectById(8);
+		UmsMember user = userService.selectById(8);
 
 
 
 		PageHelper.startPage(2,2);
-		List<User> users = userService.selectAll();
-		PageInfo<User> pageInfo = new PageInfo<>(users,5);
+		List<UmsMember> users = userService.selectAll();
+		PageInfo<UmsMember> pageInfo = new PageInfo<>(users,5);
 		System.out.println("pageInfo = " + pageInfo);
-
-		for (User user1 : pageInfo.getList()) {
+		for (UmsMember user1 : pageInfo.getList()) {
 			System.out.println("user1 = " + user1);
 		}
-
 		return user;
 	}
 
@@ -57,11 +50,11 @@ public class TetsCon {
 	public Msg list(){
 
 		PageHelper.startPage(2,2);
-		List<User> users = userService.selectAll();
-		PageInfo<User> pageInfo = new PageInfo<>(users,5);
+		List<UmsMember> users = userService.selectAll();
+		PageInfo<UmsMember> pageInfo = new PageInfo<>(users,5);
 		System.out.println("pageInfo = " + pageInfo);
 
-		for (User user1 : pageInfo.getList()) {
+		for (UmsMember user1 : pageInfo.getList()) {
 			System.out.println("user1 = " + user1);
 		}
 

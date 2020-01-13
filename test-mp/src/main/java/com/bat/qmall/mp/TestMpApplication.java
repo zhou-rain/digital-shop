@@ -11,5 +11,4 @@ public class TestMpApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TestMpApplication.class, args);
 	}
-
 }
