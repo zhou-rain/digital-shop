@@ -1,4 +1,4 @@
-package com.bat.shop.api.mapper;
+package com.bat.shop.api.mapper.ums;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bat.shop.api.bean.ums.UmsMember;
