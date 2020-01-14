@@ -21,13 +21,13 @@ public class Validator {
      */
     public static boolean isEmpty(Object value) {
 
-        if (   value == null 
-        	|| "".equalsIgnoreCase(value.toString().replaceAll(" ", ""))
-            || "null".equalsIgnoreCase(value.toString().replaceAll(" ", ""))) {// Object/String
-            return true;
-        }
+		if (   value == null
+				|| "".equalsIgnoreCase(value.toString().replaceAll(" ", ""))
+				|| "null".equalsIgnoreCase(value.toString().replaceAll(" ", ""))) {// Object/String
+			return true;
+		}
 
-        if (value instanceof Number) {// BigDecimal/BigInteger/Byte/Double/Float/Long/Integer/Short
+		if (value instanceof Number) {// BigDecimal/BigInteger/Byte/Double/Float/Long/Integer/Short
             Number number = (Number) value;
             if ("0".equalsIgnoreCase(number.toString().replaceAll(" ", "")) 
             	|| number.toString().replaceAll(" ", "").matches("[0]*")

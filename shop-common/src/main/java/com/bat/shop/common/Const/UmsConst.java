@@ -18,4 +18,9 @@ public class UmsConst {
 	public static final int USER_NOT_DELETED = 1;		//用户没删
 
 
+	public static final String USER_CODE = "code";	//验证码
+
+
+
+
 }

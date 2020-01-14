@@ -2,7 +2,7 @@ package com.bat.qmall.cart.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.bat.shop.api.bean.ums.UmsMember;
-import com.bat.shop.api.mapper.UmsMemberMapper;
+import com.bat.shop.api.mapper.ums.UmsMemberMapper;
 import com.bat.shop.api.service.ums.UmsMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

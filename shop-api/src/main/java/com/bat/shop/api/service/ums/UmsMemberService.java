@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface UmsMemberService {
 
-	UmsMember selectById(int i);
+	UmsMember selectById(int userId);
 
 	List<UmsMember> selectAll();
 
