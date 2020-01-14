@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+
+	<!-- 配置事务 -->
+	<!-- 1、配置事务管理器 -->
+	<bean id="tm" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- 2、配置事务切面 -->
+	<aop:config>
+		<!-- 切入点表达式 -->
+		<aop:pointcut expression="execution(* com.bat.shop.api.service.*.*(..))" id="txPoint"/>
+		<!-- 事务增强 -->
+		<aop:advisor advice-ref="myAdvice" pointcut-ref="txPoint"/>
+		
+	</aop:config>
+	
+	<!--3、配置事务增强 -->
+	<tx:advice id="myAdvice" transaction-manager="tm">
+		<!-- 事务属性 -->
+		<tx:attributes>
+			<!-- 设置所有属性都是事务 -->
+			<tx:method name="*"/>
+
+            <!--代表一种方法类型; 指定name->代表方法的名称; 方法名以save结尾的,应用required的策略(必须要事务)-->
+            <tx:method name="*_save" propagation="REQUIRED"/>
+            <tx:method name="*_insert" propagation="REQUIRED" />
+            <tx:method name="*_add" propagation="REQUIRED" />
+            <tx:method name="*_update" propagation="REQUIRED" />
+            <tx:method name="*_modify" propagation="REQUIRED" />
+            <tx:method name="*_edit" propagation="REQUIRED" />
+            <tx:method name="*_delete" propagation="REQUIRED" />
+            <tx:method name="*_remove" propagation="REQUIRED" />
+
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="load*" propagation="SUPPORTS" read-only="true"/>
+
+            <tx:method name="*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+
+
+
+</beans>
+
+<!--
+
+所谓事务传播行为是指，处于不同事务中的方法在相互调用时，执行期间事务的维护情况。如，A 事务中的方法 a() 调用 B 事务中的方法 b()，在调用执行期间事务的维护情况，就称为事务传播行为。事务传播行为是加在方法上的。
+REQUIRED：指定的方法必须在事务内执行。若当前存在事务，就加入到当前事务中；若当前没有事务，则创建一个新事务。这种传播行为是最常见的选择，也是 Spring 默认的事务传播行为。
+SUPPORTS：指定的方法支持当前事务，但若当前没有事务，也可以以非事务方式执行。
+MANDATORY：指定的方法必须在当前事务内执行，若当前没有事务，则直接抛出异常。
+REQUIRES_NEW：总是新建一个事务，若当前存在事务，就将当前事务挂起，直到新事务执行完毕。
+NOT_SUPPORTED：指定的方法不能在事务环境中执行，若当前存在事务，就将当前事务挂起。
+NEVER：指定的方法不能在事务环境下执行，若当前存在事务，就直接抛出异常。
+NESTED：指定的方法必须在事务内执行。若当前存在事务，则在嵌套事务内执行；若当前没有事务，则创建一个新事务。
+
+-->

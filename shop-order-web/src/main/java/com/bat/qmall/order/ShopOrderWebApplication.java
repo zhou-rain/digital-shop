@@ -1,18 +1,18 @@
-package com.bat.qmall.cart;
+package com.bat.qmall.order;
 
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- *   8884/cart
+ *	8885/order
  */
 @SpringBootApplication
 @EnableDubbo
-public class ShopCartWebApplication {
+public class ShopOrderWebApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ShopCartWebApplication.class, args);
+		SpringApplication.run(ShopOrderWebApplication.class, args);
 	}
 
 }

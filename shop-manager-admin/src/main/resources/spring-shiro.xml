@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 1、shiro的核心 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="cacheManager" ref="cacheManager"/>
+        <property name="realm" ref="myRealm"/>
+    </bean>
+
+
+	<!-- 2、缓存的管理 -->
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
+    </bean>
+
+
+	<!--3、我们自定义的realm；来认证和授权 -->
+    <bean id="myRealm" class="com.bat.shop.api.shiro.ream.MyRealm">
+        <property name="name" value="myRealm"/>
+        
+        <!-- 指定我们的加密算法,以及加密次数； -->
+        <property name="credentialsMatcher">
+			<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+				<!-- 设置加密的算法 -->
+				<property name="hashAlgorithmName" value="SHA-256"/>
+				<!-- 加密次数 -->
+				<property name="hashIterations" value="3"></property>
+                <property name="storedCredentialsHexEncoded" value="true"/>
+			</bean>
+		</property>
+    </bean>
+
+
+	<!--
+	    4、配置shiroFilter   就是我们shiro的权限过滤器
+	    4.1 、这个bean的id一定要配置的filter里面的 <filter-name>shiroFilter</filter-name> 一致
+	-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        
+        <!-- 用户没有认证跳转的页面 -->
+        <property name="loginUrl" value="/login.html"/>
+        
+        <!-- 认证成功跳转的页面 -->
+        <property name="successUrl" value="/index.html"/>
+        
+        <!-- 如果这个用户没有权限跳转的页面 -->
+        <property name="unauthorizedUrl" value="/noauth.html"/>
+
+        <!--使用工厂方法注入-->
+        <property name="filterChainDefinitionMap" ref="shiroMap"></property>
+        
+        <!-- shiro的过滤器配置
+        		ant风格；
+        		anon ： 代表没有认证的用户也可以访问的资源（请求）
+        		authc ： 必须是认证过的用户才能够访问的请求
+        		logout:执行登出请求
+        -->
+     <!--  <property name="filterChainDefinitions">
+            <value>
+                /favicon.ico = anon
+                /static/** = anon
+            	/images/** = anon
+            	/css/** = anon
+            	/js/** = anon
+
+                /user.html = roles[user]
+                /admin.html = roles[admin]
+
+                /shiro/login = anon
+                /shiro/logout = logout
+                
+                /** = authc
+            </value>
+        </property>-->
+    </bean>
+
+    <bean id="shiroMap" factory-bean="mapFactory" factory-method="build"/>
+
+    <!--普通java类-->
+    <bean id="mapFactory" class="com.bat.shop.api.shiro.factory.ShiroMapFactory"/>
+
+
+
+
+    <!-- 5、spring生命周期的管理 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!--6、容器中使用shiro注解  但必须配置 lifecycleBeanPostProcessor 才可以使用 -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    <!--7、远程调用-->
+    <bean id="secureRemoteInvocationExecutor" class="org.apache.shiro.spring.remoting.SecureRemoteInvocationExecutor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+</beans>

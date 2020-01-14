@@ -1,18 +1,18 @@
-package com.bat.qmall.cart;
+package com.bat.qmall.order;
 
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- *   8884/cart
- */
+
 @SpringBootApplication
+@MapperScan("com.bat.shop.api.mapper")
 @EnableDubbo
-public class ShopCartWebApplication {
+public class ShopOrderServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ShopCartWebApplication.class, args);
+		SpringApplication.run(ShopOrderServiceApplication.class, args);
 	}
 
 }

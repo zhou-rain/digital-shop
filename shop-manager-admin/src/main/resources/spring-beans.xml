@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 1、负责包扫描 ， 配置组件等 -->
+	<context:component-scan base-package="com.bat.shop.api">
+		<!-- 不扫描控制器 -->
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	
+	
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+	<!-- 2、数据库 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>
+	</bean>
+
+
+
+	
+
+
+
+
+</beans>
