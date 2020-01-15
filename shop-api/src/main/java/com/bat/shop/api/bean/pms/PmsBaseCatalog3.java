@@ -13,8 +13,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class PmsBaseCatalog3 extends Model<PmsBaseCatalog3> {
 
-
-	
+	private String id;
+	private String name;
+	private String catalog2Id;
 
 
 }

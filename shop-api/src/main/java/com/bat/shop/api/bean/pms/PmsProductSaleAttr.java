@@ -7,6 +7,9 @@ import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
+/**
+ * 销售属性
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class PmsProductSaleAttr extends Model<PmsProductSaleAttr> {
@@ -20,7 +23,7 @@ public class PmsProductSaleAttr extends Model<PmsProductSaleAttr> {
     String saleAttrName;
 
 	@TableField(exist = false)
-    List<PmsProductSaleAttrValue> pmsProductSaleAttrValueList;
+    List<PmsProductSaleAttrValue> spuSaleAttrValueList;
 
 
 }

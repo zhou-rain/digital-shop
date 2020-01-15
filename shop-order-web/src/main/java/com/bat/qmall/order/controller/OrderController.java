@@ -7,8 +7,6 @@ import com.bat.shop.common.commons.Msg;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * @author: zhouR
  * @date: Create in 2020/1/14 - 15:16
@@ -21,7 +19,7 @@ public class OrderController {
 	OrderService orderService;
 
 	@RequestMapping("/ok")
-	public Msg ok(HttpServletRequest request){
+	public Msg ok(){
 
 		OmsOrder omsOrder = orderService.getEntityById(12);
 

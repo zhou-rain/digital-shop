@@ -1,0 +1,42 @@
+组织名：com.bat.qmall
+
+项目名：digital-shop
+
+zk注册地址统一：dubbo.registry.address=zookeeper://112.124.25.228:2181
+
+service扫描包：com.bat.shop.api.service
+
+
+
+shop-parent		项目版本依赖  pom
+shop-common	    项目工具类  jar
+    utils
+    exception
+shop-api		提供接口  jar
+    bean
+    mapper
+    service
+
+manager     后台管理系统（SSM）
+    shop-manager        	端口：8889	/manager
+
+product	商家后台
+    shop-product-service    端口：7888   dubbo端口2888
+    shop-product-web  		端口：8888	/product
+                            前端端口：127.0.0.1:9000  index.js
+
+search	搜索模块
+    shop-search-service     端口：7887   dubbo端口2887
+    shop-search-web      	端口：8887	/search
+
+user	用户模块
+    shop-user-service       端口：7886   dubbo端口2886
+    shop-user-web   	    端口：8886	/user
+
+order	订单模块
+    shop-order-service      端口：7885   dubbo端口2885
+    shop-order-web   	    端口：8885	/order
+
+cart	购物车
+    shop-cart-service       端口：7884   dubbo端口2884
+    shop-cart-web   	    端口：8884	/cart

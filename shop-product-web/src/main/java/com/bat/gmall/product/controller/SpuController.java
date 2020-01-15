@@ -1,39 +1,72 @@
 package com.bat.gmall.product.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.bat.shop.api.bean.pms.PmsBaseCatalog1;
-import com.bat.shop.api.service.pms.Catalog1Service;
-import org.springframework.data.annotation.Id;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.bat.shop.api.bean.pms.PmsBaseSaleAttr;
+import com.bat.shop.api.bean.pms.PmsProductInfo;
+import com.bat.shop.api.service.pms.SpuService;
+import com.bat.shop.common.commons.Msg;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
- * @author panxs
- * @version 1.0
- * @date 2020/1/13 15:44
+ * @author: zhouR
+ * @date: Create in 2020/1/15 - 12:49
+ * @function:
  */
 @RestController
+@CrossOrigin
 public class SpuController {
 
-
-    @Reference(check = false)
-    Catalog1Service catalog1Service;
-
-    @RequestMapping("/index")
-    public String index(){
-        return "index.html";
-    }
+	@Reference(check = false)
+	SpuService spuService;
 
 
-    @RequestMapping("/ok")
-    @ResponseBody
-    public String ok(){
-        System.out.println("catalog1Service = " + catalog1Service);
-        PmsBaseCatalog1 catalogo1ById = catalog1Service.selectById("1");
-        System.out.println(catalogo1ById);
+	/**
+	 * 图片上传
+	 *
+	 * 将图片或者音视频上传到分布式的文件存储系统
+	 *
+	 * @param multipartFile
+	 * @return
+	 */
+	@RequestMapping("/fileUpload")
+	public String fileUpload(@RequestParam("file") MultipartFile multipartFile){
+		String imgUrl = "http://112.124.25.228/images/aa.png";
 
-        return "123123";
-    }
+		System.out.println("imgUrl = " + imgUrl);
+		//将图片的存储路径返回给页面
 
+		//将图片的元数据保存到数据库  （名称 路径）
+
+
+		//功能后期再做，这里模拟一张数据库中的图片
+		//图片存储服务器 - fastdfs
+		//https://www.bilibili.com/video/av55643074?p=51
+		
+		return imgUrl;
+	}
+
+	/**
+	 * 保存SPU信息
+	 * @param pmsProductInfo
+	 * @return
+	 */
+	@RequestMapping("/saveSpuInfo")
+	public String saveSpuInfo(@RequestBody PmsProductInfo pmsProductInfo){
+		return spuService.saveSpuInfo(pmsProductInfo);
+	}
+
+
+	/**
+	 * 根据三级分类，查询Spu  商品分类集合  电脑下面有很多品牌的电脑
+	 * @param catalog3Id
+	 * @return
+	 */
+	@RequestMapping("/spuList")
+	public List<PmsProductInfo> spuList(String catalog3Id){
+		return spuService.getSpuListByCatalog3Id(catalog3Id);
+	}
+	
 }

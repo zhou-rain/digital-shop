@@ -9,7 +9,6 @@
     </parent>
     <artifactId>shop-cart-web</artifactId>
     <name>shop-cart-web</name>
-    <description>Demo project for Spring Boot</description>
 
     <dependencies>
         <dependency>

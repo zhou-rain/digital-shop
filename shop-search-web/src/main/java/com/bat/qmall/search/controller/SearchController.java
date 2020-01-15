@@ -1,13 +1,12 @@
 package com.bat.qmall.search.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.bat.shop.api.bean.pms.PmsSkuInfo;
 import com.bat.shop.api.service.pms.SearchService;
+import com.bat.shop.common.commons.Msg;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * @author panxs
@@ -17,22 +16,16 @@ import java.util.List;
 @Controller
 public class SearchController {
 
+	@Reference(check = false)
+	SearchService searchService;
 
-    @Reference(check = false)
-    SearchService searchService;
+	@RequestMapping("/ok")
+	@ResponseBody
+	public Msg ok(){
+		System.out.println("searchService = " + searchService);
 
-    @RequestMapping("/index")
-    public String index(){
-        return "index.html";
-    }
-
-
-    @RequestMapping("/ok")
-    @ResponseBody
-    public List<PmsSkuInfo> ok(){
-        List<PmsSkuInfo> pmsSkuInfos = searchService.selectListByPrice(12000);
+		return Msg.success();
+	}
 
 
-        return pmsSkuInfos;
-    }
 }
