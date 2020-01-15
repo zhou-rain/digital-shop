@@ -1,11 +1,18 @@
 # digital-shop
 数码商城
 
-2020年1月10日  
+开发团队：潘祥森，吴映凡，周冉
+
+开发语言：java
+关键技术：springboot2.2.2 + Mybatis-plus 
+数据库：mySql8.0 + Druid
+微服务：Dubbo + zookeeper + Docker
+操作系统：开发环境-win10 + Intellij IDEA   上线环境-Linux
+版本控制：github  maven    
+
+2020年1月10日
 项目骨架搭建完成，父依赖parent，通用工具类commons，通用接口层api，另加test-demo测试用例
-关键技术：springboot2.2.2 + Druid + Mybatis-plus + mySql8.0
-微服务：Dubbo + zookeeper
-版本控制：git maven    ——zhouRan
+
 
 2020年1月11日
 1、测试前端页面跳转，测试成功
@@ -14,6 +21,7 @@
 4、test-mp测试用例测试成功
 5、还未将包抽取出来，下个版本更新
 ——zhouRan
+
 
 2020年1月12日
 1、新增5张基于shiro的后台权限数据库表
@@ -24,3 +32,34 @@
 6、明天试用ssm框架搭建后台manager前端模块
 ps：由于规则要求还未完善，等与组员讨论好，完善后再更新
 ——zhouRan
+
+
+1月13日
+优化框架，完善框架的各个模块，还未完成
+——zhouRan
+
+
+1月14日
+1、完善框架，修改框架的bug。
+2、调试前端的后台管理模块页面。
+3、搭建ssm框架，集成shiro，ssm框架内置管理员后台权限的前端页面。
+——zhouRan
+
+
+1月15日
+商城商品的录入功能：
+1、三级分类的查询
+2、商品的平台属性列表的增删改查
+3、商品spu的添加
+4、spu列表的查询（根据三级分类的id，查询spu列表）
+5、spu的销售属性、属性值的增删改查
+6、fast分布式图片服务器上传（图片上传后期有空再做）
+(保存商品信息、商品信息下关联图片和属性，属性关联属性值)
+——zhouRan
+
+
+
+
+
+
+
