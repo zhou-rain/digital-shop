@@ -23,7 +23,7 @@ manager     后台管理系统（SSM）
 product	商家后台
     shop-product-service    端口：7888   dubbo端口2888
     shop-product-web  		端口：8888	/product
-                            前端端口：127.0.0.1:9000  index.js
+                            前端端口：127.0.0.1:8079
 
 search	搜索模块
     shop-search-service     端口：7887   dubbo端口2887
@@ -40,3 +40,9 @@ order	订单模块
 cart	购物车
     shop-cart-service       端口：7884   dubbo端口2884
     shop-cart-web   	    端口：8884	/cart
+
+item    商品详情
+    #shop-item-service   端口：7883   dubbo端口2883   这里不用建了，直接可以使用product-service提供的的服务
+    shop-item-web  		端口：8883	/item
+
+

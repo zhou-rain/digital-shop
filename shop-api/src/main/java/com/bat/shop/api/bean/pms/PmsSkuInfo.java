@@ -25,14 +25,19 @@ public class PmsSkuInfo extends Model<PmsSkuInfo> {
     String catalog3Id;
     String skuDefaultImg;
 
-	@TableField(exist = false)
-    List<PmsSkuImage> pmsSkuImageList;
+
 
 	@TableField(exist = false)
-    List<PmsSkuAttrValue> pmsSkuAttrValueList;
+	String spuId;	//  SkuController下saveSkuInfo方法的实际接收productId值
 
 	@TableField(exist = false)
-    List<PmsSkuSaleAttrValue> pmsSkuSaleAttrValueList;
+    List<PmsSkuImage> skuImageList;
+
+	@TableField(exist = false)
+    List<PmsSkuAttrValue> skuAttrValueList;
+
+	@TableField(exist = false)
+    List<PmsSkuSaleAttrValue> skuSaleAttrValueList;
 
 
 

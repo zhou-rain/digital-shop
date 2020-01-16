@@ -16,7 +16,7 @@ public class PmsSkuImage extends Model<PmsSkuImage> {
     String skuId;
     String imgName;
     String imgUrl;
-    String productImgId;
+    String spuImgId;
     String isDefault;
 
 

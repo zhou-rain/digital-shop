@@ -109,6 +109,7 @@ public class AttrServiceImpl implements AttrService {
 				//重新赋属性值
 				List<PmsBaseAttrValue> attrValueList = attrInfo.getAttrValueList();
 				for (PmsBaseAttrValue attrValue : attrValueList) {
+					attrValue.setAttrId(attrInfo.getId());
 					pmsBaseAttrValueMapper.insert(attrValue);
 				}
 

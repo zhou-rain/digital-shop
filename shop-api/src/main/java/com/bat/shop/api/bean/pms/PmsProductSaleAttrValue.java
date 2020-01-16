@@ -14,7 +14,7 @@ public class PmsProductSaleAttrValue extends Model<PmsProductSaleAttrValue> {
     String saleAttrId;
 
     String saleAttrValueName;
-    String isChecked;
+    //String isChecked;
 
 
 }

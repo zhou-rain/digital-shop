@@ -10,35 +10,27 @@
     <artifactId>shop-product-service</artifactId>
     <name>shop-product-service</name>
 
-
-
     <dependencies>
-
+        <!--api接口-->
         <dependency>
             <groupId>com.bat.qmall</groupId>
             <artifactId>shop-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
-
+        <!--通用工具类-->
         <dependency>
             <groupId>com.bat.qmall</groupId>
             <artifactId>shop-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
-
+        <!--springboot test-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-        </dependency>
-
     </dependencies>
 
     <build>

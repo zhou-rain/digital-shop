@@ -2,7 +2,9 @@ package com.bat.gmall.product.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.bat.shop.api.bean.pms.PmsBaseSaleAttr;
+import com.bat.shop.api.bean.pms.PmsProductImage;
 import com.bat.shop.api.bean.pms.PmsProductInfo;
+import com.bat.shop.api.bean.pms.PmsProductSaleAttr;
 import com.bat.shop.api.service.pms.SpuService;
 import com.bat.shop.common.commons.Msg;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +21,26 @@ import java.util.List;
 @CrossOrigin
 public class SpuController {
 
-	@Reference(check = false)
+	@Reference
 	SpuService spuService;
+
+
+	//spu销售属性列表
+	@RequestMapping("/spuSaleAttrList")
+	public List<PmsProductSaleAttr> spuSaleAttrList(String spuId){
+		return spuService.spuSaleAttrListBySpuId(spuId);
+	}
+
+
+	//spu的图片列表
+	@RequestMapping("/spuImageList")
+	public List<PmsProductImage> spuImageList(String spuId){
+		return spuService.spuImageListBySpuId(spuId);
+	}
+
+
+
+
 
 
 	/**
@@ -55,6 +75,7 @@ public class SpuController {
 	 */
 	@RequestMapping("/saveSpuInfo")
 	public String saveSpuInfo(@RequestBody PmsProductInfo pmsProductInfo){
+
 		return spuService.saveSpuInfo(pmsProductInfo);
 	}
 

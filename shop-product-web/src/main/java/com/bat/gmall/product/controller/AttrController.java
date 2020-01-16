@@ -25,22 +25,15 @@ public class AttrController {
 	@Reference(check = false)
 	AttrService attrService;
 
-/*
-	平台属性列表	平台属性+ 值 双层集合
-	 attrInfoList?catalog3Id
-	销售属性列表
-	spuSaleAttrList?spuId
-	spu的图片列表
-	spuImageList?spuId
-*/
 	/**
 	 * 删除平台属性值
+	 *
 	 * @return
 	 */
-	@RequestMapping("/delBatch")
-	public String delBatch(String attrId){
+	@RequestMapping("/deleteAttrValueById")
+	public String deleteAttrValueById(String id){
 		try {
-			attrService.delBatch(attrId);
+			attrService.delBatch(id);
 		} catch (MsgException e) {
 			return e.getMessage();
 		}
@@ -50,6 +43,7 @@ public class AttrController {
 
 	/**
 	 * 获取平台属性
+	 *
 	 * @return
 	 */
 	@RequestMapping("/baseSaleAttrList")
@@ -71,10 +65,6 @@ public class AttrController {
 		attrService.saveAttrInfo(attrInfo);
 		return "success";
 	}
-
-
-
-
 
 	/**
 	 * 根据属性id 获取属性值

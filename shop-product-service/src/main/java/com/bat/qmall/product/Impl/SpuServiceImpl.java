@@ -61,6 +61,7 @@ public class SpuServiceImpl implements SpuService {
 		for (PmsProductImage pmsProductImage : spuImageList) {
 			pmsProductImage.setProductId(productId);
 			pmsProductImageMapper.insert(pmsProductImage);
+
 		}
 
 		List<PmsProductSaleAttr> spuSaleAttrList = pmsProductInfo.getSpuSaleAttrList();
@@ -82,6 +83,49 @@ public class SpuServiceImpl implements SpuService {
 		}
 
 		return "success";
+	}
+
+	/**
+	 * 根据spuid 查询spu销售属性列表
+	 * @param spuId productId
+	 * @return
+	 */
+	@Override
+	public List<PmsProductSaleAttr> spuSaleAttrListBySpuId(String spuId) {
+
+		//获取商品属性集合
+		PmsProductSaleAttr pmsProductSaleAttr = new PmsProductSaleAttr();
+		pmsProductSaleAttr.setProductId(spuId);
+		QueryWrapper<PmsProductSaleAttr> aqw = new QueryWrapper<>(pmsProductSaleAttr);
+		List<PmsProductSaleAttr> pmsProductSaleAttrs = pmsProductSaleAttrMapper.selectList(aqw);
+
+		//获取商品属性值集合
+		for (PmsProductSaleAttr productSaleAttr : pmsProductSaleAttrs) {
+			PmsProductSaleAttrValue pmsProductSaleAttrValue = new PmsProductSaleAttrValue();
+			//销售属性用的是系统的字典表中的id，不是销售属性表的主键
+			pmsProductSaleAttrValue.setSaleAttrId(productSaleAttr.getSaleAttrId());
+			pmsProductSaleAttrValue.setProductId(spuId);
+			QueryWrapper<PmsProductSaleAttrValue> avqw = new QueryWrapper<>(pmsProductSaleAttrValue);
+			List<PmsProductSaleAttrValue> pmsProductSaleAttrValueList = pmsProductSaleAttrValueMapper.selectList(avqw);
+			productSaleAttr.setSpuSaleAttrValueList(pmsProductSaleAttrValueList);
+		}
+
+		return pmsProductSaleAttrs;
+	}
+
+	/**
+	 * 根据spuid 查询spu的图片列表
+	 * @param spuId productId
+	 * @return
+	 */
+	@Override
+	public List<PmsProductImage> spuImageListBySpuId(String spuId) {
+
+		PmsProductImage pmsProductImage = new PmsProductImage();
+		pmsProductImage.setProductId(spuId);
+		QueryWrapper<PmsProductImage> queryWrapper = new QueryWrapper<>(pmsProductImage);
+		return pmsProductImage.selectList(queryWrapper);
+
 	}
 
 
