@@ -27,14 +27,13 @@ public class SkuController {
 	@RequestMapping("/saveSkuInfo")
 	public String saveSkuInfo(@RequestBody PmsSkuInfo pmsSkuInfo){
 
-		//前后端传值有误
+		//前端传值有误，设置默认值
 		pmsSkuInfo.setProductId(pmsSkuInfo.getSpuId());
 
 		//处理默认图片
 		if(Validator.isEmpty(pmsSkuInfo.getSkuDefaultImg())){
 			pmsSkuInfo.setSkuDefaultImg(pmsSkuInfo.getSkuImageList().get(0).getImgUrl());
 		}
-
 
 		try {
 

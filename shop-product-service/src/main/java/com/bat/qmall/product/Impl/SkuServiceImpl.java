@@ -54,7 +54,6 @@ public class SkuServiceImpl implements SkuService {
 			for (PmsSkuAttrValue pmsSkuAttrValue : skuAttrValueList) {
 				pmsSkuAttrValue.setSkuId(skuId);
 				pmsSkuAttrValueMapper.insert(pmsSkuAttrValue);
-
 			}
 
 			//保存销售属性关联
@@ -63,6 +62,8 @@ public class SkuServiceImpl implements SkuService {
 				pmsSkuSaleAttrValue.setSkuId(skuId);
 				pmsSkuSaleAttrValueMapper.insert(pmsSkuSaleAttrValue);
 			}
+			System.out.println("skuSaleAttrValueList = " + skuSaleAttrValueList);
+
 
 			//保存sku图片信息
 			List<PmsSkuImage> skuImageList = pmsSkuInfo.getSkuImageList();
@@ -71,6 +72,7 @@ public class SkuServiceImpl implements SkuService {
 				pmsSkuImageMapper.insert(pmsSkuImage);
 			}
 		} catch (Exception e) {
+			System.out.println("e ======================= " + e);
 			throw new ErrException();
 		}
 

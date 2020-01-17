@@ -70,13 +70,13 @@ public class SpuServiceImpl implements SpuService {
 			pmsProductSaleAttr.setProductId(productId);
 			pmsProductSaleAttrMapper.insert(pmsProductSaleAttr);
 
-			String saleAttrId = pmsProductSaleAttr.getId();
+			//String saleAttrId = pmsProductSaleAttr.getSaleAttrId();
 
 			List<PmsProductSaleAttrValue> spuSaleAttrValueList = pmsProductSaleAttr.getSpuSaleAttrValueList();
 			for (PmsProductSaleAttrValue pmsProductSaleAttrValue : spuSaleAttrValueList) {
 				//保存属性值信息
 				pmsProductSaleAttrValue.setProductId(productId);
-				pmsProductSaleAttrValue.setSaleAttrId(saleAttrId);
+				//pmsProductSaleAttrValue.setSaleAttrId(saleAttrId);
 				pmsProductSaleAttrValueMapper.insert(pmsProductSaleAttrValue);
 			}
 		}
