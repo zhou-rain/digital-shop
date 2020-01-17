@@ -1,8 +1,11 @@
 package com.bat.shop.api.service.pms;
 
 import com.bat.shop.api.bean.pms.PmsBaseAttrValue;
+import com.bat.shop.api.bean.pms.PmsProductSaleAttr;
 import com.bat.shop.api.bean.pms.PmsSkuInfo;
 import com.bat.shop.common.exception.ErrException;
+
+import java.util.List;
 
 /**
  * @author: zhouR
@@ -26,5 +29,6 @@ public interface SkuService {
 	 */
 	PmsSkuInfo getSkuById(String skuId);
 
-	//PmsBaseAttrValue getSkuAttrValueBySkuId(String );
+
+
 }

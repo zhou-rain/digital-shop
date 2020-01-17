@@ -61,7 +61,6 @@ public class SpuServiceImpl implements SpuService {
 		for (PmsProductImage pmsProductImage : spuImageList) {
 			pmsProductImage.setProductId(productId);
 			pmsProductImageMapper.insert(pmsProductImage);
-
 		}
 
 		List<PmsProductSaleAttr> spuSaleAttrList = pmsProductInfo.getSpuSaleAttrList();
@@ -127,6 +126,35 @@ public class SpuServiceImpl implements SpuService {
 		return pmsProductImage.selectList(queryWrapper);
 
 	}
+
+	/**
+	 * 根据productId 获取商品销售属性
+	 * @param productId
+	 * @return
+	 */
+	@Override
+	public List<PmsProductSaleAttr> spuSaleAttrListCheckBySku(String productId) {
+
+		//销售属性
+		QueryWrapper<PmsProductSaleAttr> wapper = new QueryWrapper<>();
+		wapper.eq("product_id",productId);
+		List<PmsProductSaleAttr> pmsProductSaleAttrs = pmsProductSaleAttrMapper.selectList(wapper);
+
+		//销售属性值
+		for (PmsProductSaleAttr productSaleAttr : pmsProductSaleAttrs) {
+			String saleAttrId = productSaleAttr.getId();
+			QueryWrapper<PmsProductSaleAttrValue> qw = new QueryWrapper<>();
+			//对应的商品id  和对应的属性id
+			qw.eq("sale_attr_id",saleAttrId).eq("product_id",productId);
+			List<PmsProductSaleAttrValue> productSaleAttrValueList = pmsProductSaleAttrValueMapper.selectList(qw);
+			productSaleAttr.setSpuSaleAttrValueList(productSaleAttrValueList);
+		}
+
+		return pmsProductSaleAttrs;
+	}
+
+
+
 
 
 }

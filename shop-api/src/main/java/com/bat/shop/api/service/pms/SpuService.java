@@ -40,4 +40,11 @@ public interface SpuService {
 	 * @return
 	 */
 	List<PmsProductImage> spuImageListBySpuId(String spuId);
+
+	/**
+	 * 根据productId 获取商品销售属性
+	 * @param productId
+	 * @return
+	 */
+	List<PmsProductSaleAttr> spuSaleAttrListCheckBySku(String productId);
 }

@@ -1,12 +1,16 @@
 package com.bat.qmall.item.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.bat.shop.api.bean.pms.PmsProductSaleAttr;
 import com.bat.shop.api.bean.pms.PmsSkuInfo;
 import com.bat.shop.api.service.pms.SkuService;
+import com.bat.shop.api.service.pms.SpuService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * @author: zhouR
@@ -18,6 +22,8 @@ public class ItemController {
 
 	@Reference
 	SkuService skuService;
+	@Reference
+	SpuService spuService;
 
 
 	/*
@@ -84,15 +90,19 @@ public class ItemController {
 	 */
 	@RequestMapping("{skuId}.html")
 	public String item(@PathVariable String skuId,Model model){
+		//sku对象
 		PmsSkuInfo pmsSkuInfo = skuService.getSkuById(skuId);
+
+		//销售属性列表
+		List<PmsProductSaleAttr> spuSaleAttrListCheckBySku = spuService.spuSaleAttrListCheckBySku(pmsSkuInfo.getProductId());
+
+		System.out.println("spuSaleAttrListCheckBySku = " + spuSaleAttrListCheckBySku);
 
 		//PmsBaseAttrValue spuSaleAttr= skuService.getSkuAttrValueBySkuId(skuId);
 
-		//sku对象
 		model.addAttribute("skuInfo",pmsSkuInfo);
-		//销售属性列表
-		model.addAttribute("skuInfo",pmsSkuInfo);
-		//model.addAttribute("spuSaleAttr",spuSaleAttr);
+
+		model.addAttribute("spuSaleAttrListCheckBySku",spuSaleAttrListCheckBySku);
 
 		return "item";
 	}

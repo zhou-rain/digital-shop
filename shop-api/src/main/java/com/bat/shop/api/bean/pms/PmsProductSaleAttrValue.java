@@ -1,5 +1,6 @@
 package com.bat.shop.api.bean.pms;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,7 +15,9 @@ public class PmsProductSaleAttrValue extends Model<PmsProductSaleAttrValue> {
     String saleAttrId;
 
     String saleAttrValueName;
-    //String isChecked;
+
+    @TableField(exist = false)
+    String isChecked;
 
 
 }
