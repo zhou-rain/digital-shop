@@ -1,8 +1,10 @@
 package com.bat.qmall.item.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
 import com.bat.shop.api.bean.pms.PmsProductSaleAttr;
 import com.bat.shop.api.bean.pms.PmsSkuInfo;
+import com.bat.shop.api.bean.pms.PmsSkuSaleAttrValue;
 import com.bat.shop.api.service.pms.SkuService;
 import com.bat.shop.api.service.pms.SpuService;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: zhouR
@@ -55,6 +59,22 @@ public class ItemController {
 			C页面根据skuId查询到sku对象返回到页面
 
 
+			现在优化上面的sql
+			SELECT sa.*,sav.*,IF(ssav.id,1,0)
+			FROM `pms_product_sale_attr` sa
+			INNER JOIN `pms_product_sale_attr_value` sav
+				ON sav.`product_id`=sa.`product_id`
+				AND sav.`sale_attr_id` = sa.`sale_attr_id`
+				AND sa.`product_id` = 24
+			LEFT JOIN `pms_sku_sale_attr_value` ssav
+				ON ssav.sale_attr_value_id = sav.`id`
+				AND ssav.sku_id = 11
+
+
+			if(判断的值,存在设为值,不存在设为值)
+			IF(ssav.id,1,0)  如果ssav.id存在，设为1，否则设为0
+
+
 
 
 		添加的时候就已经选择了红色和128G 这已经是一个组合，可以通过这个组合反推出sku
@@ -88,21 +108,35 @@ public class ItemController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("{skuId}.html")
+	@RequestMapping("/{skuId}.html")
 	public String item(@PathVariable String skuId,Model model){
 		//sku对象
 		PmsSkuInfo pmsSkuInfo = skuService.getSkuById(skuId);
 
 		//销售属性列表
-		List<PmsProductSaleAttr> spuSaleAttrListCheckBySku = spuService.spuSaleAttrListCheckBySku(pmsSkuInfo.getProductId());
+		List<PmsProductSaleAttr> spuSaleAttrListCheckBySku = spuService.spuSaleAttrListCheckBySku(pmsSkuInfo.getProductId(),skuId);
 
-		System.out.println("spuSaleAttrListCheckBySku = " + spuSaleAttrListCheckBySku);
+		Map<String, String> skuSaleAttrHash = new HashMap<>();
+		//查询当前sku的其他sku的集合的hash表
+		List<PmsSkuInfo> pmsSkuInfos = skuService.getSkuSaleAttrValueListBySpu(pmsSkuInfo.getProductId());
+		for (PmsSkuInfo skuInfo : pmsSkuInfos) {
+			StringBuilder key = new StringBuilder();	//hash表的key
+			String skuInfoId = skuInfo.getId();			//hash表的value
 
-		//PmsBaseAttrValue spuSaleAttr= skuService.getSkuAttrValueBySkuId(skuId);
+			List<PmsSkuSaleAttrValue> skuSaleAttrValueList = skuInfo.getSkuSaleAttrValueList();
+			for (PmsSkuSaleAttrValue pmsSkuSaleAttrValue : skuSaleAttrValueList) {
+				key.append(pmsSkuSaleAttrValue.getSaleAttrValueId()).append("|");
+			}
+			skuSaleAttrHash.put(key.toString(),skuInfoId);
+
+		}
+		//将map集合变成json字符串
+		String skuSaleAttrHashJsonStr = JSON.toJSONString(skuSaleAttrHash);
+
 
 		model.addAttribute("skuInfo",pmsSkuInfo);
-
 		model.addAttribute("spuSaleAttrListCheckBySku",spuSaleAttrListCheckBySku);
+		model.addAttribute("skuSaleAttrHashJsonStr",skuSaleAttrHashJsonStr);
 
 		return "item";
 	}

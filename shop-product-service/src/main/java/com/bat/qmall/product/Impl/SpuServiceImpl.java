@@ -133,8 +133,9 @@ public class SpuServiceImpl implements SpuService {
 	 * @return
 	 */
 	@Override
-	public List<PmsProductSaleAttr> spuSaleAttrListCheckBySku(String productId) {
+	public List<PmsProductSaleAttr> spuSaleAttrListCheckBySku(String productId,String skuId) {
 
+		/*
 		//销售属性
 		QueryWrapper<PmsProductSaleAttr> wapper = new QueryWrapper<>();
 		wapper.eq("product_id",productId);
@@ -149,6 +150,24 @@ public class SpuServiceImpl implements SpuService {
 			List<PmsProductSaleAttrValue> productSaleAttrValueList = pmsProductSaleAttrValueMapper.selectList(qw);
 			productSaleAttr.setSpuSaleAttrValueList(productSaleAttrValueList);
 		}
+		*/
+
+		/*
+		上面执行的是下面这条语句，问题是无法判断当前选中状态
+		SELECT
+		  *
+		FROM
+		  `pms_product_sale_attr` sa,
+		  `pms_product_sale_attr_value` sav
+		WHERE sa.`product_id` = sav.`product_id`
+		  AND sa.`sale_attr_id` = sav.`sale_attr_id`
+		  AND sa.`product_id` = ?
+		 */
+
+		//现在自定义sql进行判断
+
+
+		List<PmsProductSaleAttr> pmsProductSaleAttrs = pmsProductSaleAttrMapper.selectSpuSaleAttrListCheckBySku(productId,skuId);
 
 		return pmsProductSaleAttrs;
 	}

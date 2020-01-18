@@ -42,9 +42,11 @@ public interface SpuService {
 	List<PmsProductImage> spuImageListBySpuId(String spuId);
 
 	/**
-	 * 根据productId 获取商品销售属性
-	 * @param productId
+	 * 根据spuId 获取商品销售属性
+	 * 根据skuId 判断当前被选中的组合，封装在isChecked字段中
+	 * @param spuId
+	 * @param skuId
 	 * @return
 	 */
-	List<PmsProductSaleAttr> spuSaleAttrListCheckBySku(String productId);
+	List<PmsProductSaleAttr> spuSaleAttrListCheckBySku(String spuId,String skuId);
 }

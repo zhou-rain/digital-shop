@@ -114,5 +114,16 @@ public class SkuServiceImpl implements SkuService {
 		return pmsSkuInfo;
 	}
 
+	/**
+	 * 获取当前sku的所有兄弟属性，并将属性值id进行拼接成hash表
+	 * @param productId
+	 * @return
+	 */
+	@Override
+	public List<PmsSkuInfo> getSkuSaleAttrValueListBySpu(String productId) {
+
+		return pmsSkuInfoMapper.selectSkuSaleAttrValueListBySpu(productId);
+	}
+
 
 }

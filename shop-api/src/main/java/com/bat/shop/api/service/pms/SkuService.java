@@ -1,7 +1,5 @@
 package com.bat.shop.api.service.pms;
 
-import com.bat.shop.api.bean.pms.PmsBaseAttrValue;
-import com.bat.shop.api.bean.pms.PmsProductSaleAttr;
 import com.bat.shop.api.bean.pms.PmsSkuInfo;
 import com.bat.shop.common.exception.ErrException;
 
@@ -30,5 +28,10 @@ public interface SkuService {
 	PmsSkuInfo getSkuById(String skuId);
 
 
-
+	/**
+	 * 获取当前sku的所有兄弟属性，并将属性值id进行拼接成hash表
+	 * @param productId
+	 * @return
+	 */
+	List<PmsSkuInfo> getSkuSaleAttrValueListBySpu(String productId);
 }
