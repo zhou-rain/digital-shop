@@ -1034,7 +1034,7 @@
 
             $.each(checkDivs,function (i,obj) {
                 valueIds+=$(obj).attr("value")+"|";
-            })
+            });
 
 
             //页面上的hashjson
@@ -1044,7 +1044,6 @@
 
             // 看看hash有没有
             var skuId= valuesSkuJson[valueIds];
-            console.log(skuId);
             
             // 当前sku
             var skuIdSelf=$("#skuId").val();

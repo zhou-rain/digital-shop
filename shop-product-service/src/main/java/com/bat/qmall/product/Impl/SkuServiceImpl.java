@@ -1,6 +1,7 @@
 package com.bat.qmall.product.Impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bat.shop.api.bean.pms.PmsSkuAttrValue;
 import com.bat.shop.api.bean.pms.PmsSkuImage;
@@ -11,9 +12,13 @@ import com.bat.shop.api.mapper.pms.PmsSkuImageMapper;
 import com.bat.shop.api.mapper.pms.PmsSkuInfoMapper;
 import com.bat.shop.api.mapper.pms.PmsSkuSaleAttrValueMapper;
 import com.bat.shop.api.service.pms.SkuService;
+import com.bat.shop.common.Const.RedisConst;
 import com.bat.shop.common.exception.ErrException;
+import com.bat.shop.common.utils.RedisUtil;
+import com.bat.shop.common.utils.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import redis.clients.jedis.Jedis;
 
 import java.util.List;
 
@@ -34,6 +39,8 @@ public class SkuServiceImpl implements SkuService {
 	PmsSkuSaleAttrValueMapper pmsSkuSaleAttrValueMapper;
 	@Autowired
 	PmsSkuImageMapper pmsSkuImageMapper;
+	@Autowired
+	RedisUtil redisUtil;
 
 	/**
 	 * 保存商品sku信息
@@ -85,6 +92,40 @@ public class SkuServiceImpl implements SkuService {
 	 */
 	@Override
 	public PmsSkuInfo getSkuById(String skuId) {
+
+		PmsSkuInfo pmsSkuInfo;
+
+		//连接缓存
+		Jedis jedis = redisUtil.getJedis();
+
+		//查询缓存
+		String skuKey = RedisConst.getSkuKey(skuId);
+		String skuJson = jedis.get(skuKey);
+
+		if(Validator.isNotEmpty(skuJson)){
+			//如果缓存中有,直接取出
+			pmsSkuInfo = JSON.parseObject(skuJson,PmsSkuInfo.class); //将json字符串转成java对象
+		}else {
+
+			//如果缓存中没有，查询数据库，返回数据，并把数据存入缓存
+			pmsSkuInfo = getSkuByIdFromDb(skuId);
+
+			if(pmsSkuInfo!=null){
+				//如果在数据库中查询的结果不为空
+				//将数据存入redis
+				jedis.set(skuKey,JSON.toJSONString(pmsSkuInfo));
+			}
+
+		}
+
+		//关闭流
+		jedis.close();
+
+		return pmsSkuInfo;
+	}
+
+
+	public PmsSkuInfo getSkuByIdFromDb(String skuId) {
 		PmsSkuInfo pmsSkuInfo = pmsSkuInfoMapper.selectById(skuId);
 
 		//查图片
@@ -113,6 +154,8 @@ public class SkuServiceImpl implements SkuService {
 
 		return pmsSkuInfo;
 	}
+
+
 
 	/**
 	 * 获取当前sku的所有兄弟属性，并将属性值id进行拼接成hash表

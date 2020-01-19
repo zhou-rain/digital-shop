@@ -115,6 +115,14 @@
         </dependency>
 
         <!--后端工具类-->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.searchbox</groupId>
+            <artifactId>jest</artifactId>
+        </dependency>
 
 
         <dependency>

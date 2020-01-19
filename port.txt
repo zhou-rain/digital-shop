@@ -3,6 +3,7 @@
 项目名：digital-shop
 
 zk注册地址统一：dubbo.registry.address=zookeeper://112.124.25.228:2181
+redis地址：112.124.25.228:6379
 
 service扫描包：com.bat.shop.api.service
 
