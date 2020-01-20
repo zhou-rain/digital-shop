@@ -13,7 +13,7 @@ public class StringUtil {
 	 * 获取uuid
 	 * @return
 	 */
-	public static String uuid(){
+	public static String getUuid(){
 		return UUID.randomUUID().toString().replaceAll("-","").substring(16)+DateUtil.getTimesPlus();
 	}
 
