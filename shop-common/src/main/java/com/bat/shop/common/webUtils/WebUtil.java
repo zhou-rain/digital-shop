@@ -1,4 +1,6 @@
-package com.bat.shop.common.utils;
+package com.bat.shop.common.webUtils;
+
+import com.bat.shop.common.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;

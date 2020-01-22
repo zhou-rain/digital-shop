@@ -1,12 +1,10 @@
 package com.bat.gmall.product.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.bat.shop.api.bean.pms.PmsBaseSaleAttr;
 import com.bat.shop.api.bean.pms.PmsProductImage;
 import com.bat.shop.api.bean.pms.PmsProductInfo;
 import com.bat.shop.api.bean.pms.PmsProductSaleAttr;
 import com.bat.shop.api.service.pms.SpuService;
-import com.bat.shop.common.commons.Msg;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

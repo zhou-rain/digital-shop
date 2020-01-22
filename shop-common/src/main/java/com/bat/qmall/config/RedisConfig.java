@@ -12,11 +12,14 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RedisConfig {
+
 	//读取配置文件中的redis的ip地址
 	@Value("${spring.redis.host:disabled}")
 	private String host;
-	@Value("${spring.redis.port:0}")
+
+	@Value("${spring.redis.port:6379}")
 	private int port;
+
 	@Value("${spring.redis.database:0}")
 	private int database;
 
@@ -27,10 +30,6 @@ public class RedisConfig {
 		}
 		RedisUtil redisUtil = new RedisUtil();
 		redisUtil.initPool(host, port, database);
-		System.out.println("redisUtil = " + redisUtil);
-		System.out.println(host);
-		System.out.println(port);
-		System.out.println(database);
 		return redisUtil;
 	}
 }
