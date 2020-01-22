@@ -41,6 +41,7 @@ public class CartController {
 	 */
 	@RequestMapping("addToCart")
 	public String addToCart(String skuId, int quantity, HttpServletRequest request, HttpServletResponse response) {
+		List<OmsCartItem> omsOrderItems = new ArrayList<>();
 
 		//1、传递参数（商品skuId，商品数量）
 		//根据skuId调用skuService查询商品详情信息
@@ -75,24 +76,26 @@ public class CartController {
 
 			String cartListCookie = CookieUtil.getCookieValue(request, OmsConst.CART_COOKIE, true);
 
-			List<OmsCartItem> omsOrderItems = new ArrayList<>();
-
-
 			if (Validator.isEmpty(cartListCookie)) {
-				//如果cookie没有存放购物车，直接添加
-				//omsOrderItems.add(omsCartItem);
+				//如果cookie为空，直接添加
+				omsOrderItems.add(cartItem);
 			} else {
-				//cookie有商品
-				List<OmsCartItem> cookieCartList = JSON.parseArray(cartListCookie, OmsCartItem.class);
-				if(isInArray(skuId,cookieCartList)){
-					//有添加过相同的商品
+				//cookie不为空
+				omsOrderItems = JSON.parseArray(cartListCookie, OmsCartItem.class);
 
+				boolean exist = isInArray(skuId, omsOrderItems);
+				if(exist){
+					//有添加过相同的商品，将数量+新加的数量
+					for (OmsCartItem item : omsOrderItems) {
+						if(item.getProductSkuId().equals(skuId)){
+							item.setQuantity(item.getQuantity()+quantity);
+							break;
+						}
+					}
 				}else {
 					//新商品
-					//omsOrderItems.add(omsCartItem);
+					omsOrderItems.add(cartItem);
 				}
-
-
 
 			}
 
@@ -113,6 +116,7 @@ public class CartController {
 
 	/**
 	 * 判断要添加的商品是否在cookie内
+	 * true/存在  false/不存在
 	 * @param skuId
 	 * @param list
 	 * @return
