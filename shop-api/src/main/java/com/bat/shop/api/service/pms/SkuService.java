@@ -1,7 +1,7 @@
 package com.bat.shop.api.service.pms;
 
 import com.bat.shop.api.bean.pms.PmsSkuInfo;
-import com.bat.shop.common.exception.ErrException;
+import com.bat.qmall.exception.ErrException;
 
 import java.util.List;
 

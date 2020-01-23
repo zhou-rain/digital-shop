@@ -11,8 +11,8 @@ public class OmsCompanyAddress extends Model<OmsCompanyAddress> {
 
     private String id;
     private String  addressName;
-    private int sendStatus;
-    private int receiveStatus;
+    private Integer sendStatus;
+    private Integer receiveStatus;
     private String name;
     private String phone;
     private String province;

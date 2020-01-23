@@ -5,7 +5,7 @@ import com.bat.shop.api.bean.pms.PmsBaseAttrInfo;
 import com.bat.shop.api.bean.pms.PmsBaseAttrValue;
 import com.bat.shop.api.bean.pms.PmsBaseSaleAttr;
 import com.bat.shop.api.service.pms.AttrService;
-import com.bat.shop.common.exception.MsgException;
+import com.bat.qmall.exception.MsgException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package com.bat.shop.common.exception;
+package com.bat.qmall.exception;
 
 /**
  * @author: zhouR

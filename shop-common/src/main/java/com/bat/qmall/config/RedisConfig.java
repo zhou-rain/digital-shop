@@ -1,6 +1,6 @@
 package com.bat.qmall.config;
 
-import com.bat.shop.common.utils.RedisUtil;
+import com.bat.qmall.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

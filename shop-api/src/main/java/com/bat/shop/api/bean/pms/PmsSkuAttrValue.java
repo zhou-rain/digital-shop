@@ -8,13 +8,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class PmsSkuAttrValue extends Model<PmsSkuAttrValue> {
 
-    String id;
-
-    String attrId;
-
-    String valueId;
-
-    String skuId;
+	private String id;
+	private String attrId;
+	private String valueId;
+	private String skuId;
 
 
 }

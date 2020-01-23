@@ -14,16 +14,16 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class PmsProductSaleAttr extends Model<PmsProductSaleAttr> {
 
-    String id ;
+	private String id ;
 
-    String productId;
+	private String productId;
 
-    String saleAttrId;
+	private String saleAttrId;
 
-    String saleAttrName;
+	private String saleAttrName;
 
 	@TableField(exist = false)
-    List<PmsProductSaleAttrValue> spuSaleAttrValueList;
+	private List<PmsProductSaleAttrValue> spuSaleAttrValueList;
 
 
 }

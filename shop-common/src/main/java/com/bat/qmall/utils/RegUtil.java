@@ -1,4 +1,4 @@
-package com.bat.shop.common.utils;
+package com.bat.qmall.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

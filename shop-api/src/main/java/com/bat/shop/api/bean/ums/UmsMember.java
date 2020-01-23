@@ -19,19 +19,19 @@ public class UmsMember extends Model<UmsMember> {
     private String nickname;
     private String phone;
 	private String email;					//邮箱
-    private int status;						//
+    private Integer status;						//
     private Date createTime;
     private String icon;
-    private int gender;
+    private Integer gender;
     private Date birthday;
     private String city;
     private String job;
     private String personalizedSignature;
-    private int sourceType;
-    private int integration;
-    private int growth;
-    private int luckeyCount;
-    private int historyIntegration;			//历史积分数量
+    private Integer sourceType;
+    private Integer integration;
+    private Integer growth;
+    private Integer luckeyCount;
+    private Integer historyIntegration;			//历史积分数量
 
 	@Version
 	private int deleted;					//逻辑删除 0-删除 1没删

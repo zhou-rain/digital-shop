@@ -1,7 +1,7 @@
-package com.bat.shop.common.listener;
+package com.bat.qmall.listener;
 
 
-import com.bat.shop.common.Const.SystemConst;
+import com.bat.qmall.Const.SystemConst;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;

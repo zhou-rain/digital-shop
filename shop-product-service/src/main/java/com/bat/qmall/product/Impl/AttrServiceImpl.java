@@ -10,10 +10,10 @@ import com.bat.shop.api.mapper.pms.PmsBaseAttrInfoMapper;
 import com.bat.shop.api.mapper.pms.PmsBaseAttrValueMapper;
 import com.bat.shop.api.mapper.pms.PmsBaseSaleAttrMapper;
 import com.bat.shop.api.service.pms.AttrService;
-import com.bat.shop.common.exception.EmptyException;
-import com.bat.shop.common.exception.ErrException;
-import com.bat.shop.common.utils.ArrayUtil;
-import com.bat.shop.common.utils.Validator;
+import com.bat.qmall.exception.EmptyException;
+import com.bat.qmall.exception.ErrException;
+import com.bat.qmall.utils.ArrayUtil;
+import com.bat.qmall.utils.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

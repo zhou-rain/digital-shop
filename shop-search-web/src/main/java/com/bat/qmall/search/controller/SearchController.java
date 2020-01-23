@@ -2,7 +2,7 @@ package com.bat.qmall.search.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.bat.shop.api.service.pms.SearchService;
-import com.bat.shop.common.webUtils.Msg;
+import com.bat.qmall.webUtils.Msg;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

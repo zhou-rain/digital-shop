@@ -1,10 +1,9 @@
-package com.bat.shop.common.webUtils;
+package com.bat.qmall.webUtils;
 
-import com.bat.shop.common.utils.Validator;
+import com.bat.qmall.utils.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
-import java.util.UUID;
 
 public class WebUtil {
 	

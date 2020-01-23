@@ -1,4 +1,4 @@
-package com.bat.shop.common.webUtils;
+package com.bat.qmall.webUtils;
 
 import java.util.HashMap;
 import java.util.Map;

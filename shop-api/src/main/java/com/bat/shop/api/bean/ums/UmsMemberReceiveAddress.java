@@ -12,7 +12,7 @@ public class UmsMemberReceiveAddress extends Model<UmsMemberReceiveAddress> {
 	private String memberId;
 	private String name;
 	private String phoneNumber;
-	private int defaultStatus;
+	private Integer defaultStatus;
 	private String postCode;
 	private String province;
 	private String city;

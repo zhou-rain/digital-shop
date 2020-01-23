@@ -19,7 +19,7 @@ public class OmsOrderItem extends Model<OmsOrderItem> {
     private String productBrand;
     private String productSn;
     private String productPrice;
-    private int productQuantity;
+    private Integer productQuantity;
     private String productSkuId;
     private String productSkuCode;
     private String productCategoryId;
@@ -31,8 +31,8 @@ public class OmsOrderItem extends Model<OmsOrderItem> {
     private BigDecimal couponAmount;
     private BigDecimal integrationAmount;
     private String realAmount;
-    private int giftIntegration;
-    private int giftGrowth;
+    private Integer giftIntegration;
+    private Integer giftGrowth;
     private String productAttr;
 
 }

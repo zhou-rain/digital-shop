@@ -1,6 +1,6 @@
 package com.bat.shop.api.shiro.ream;
 
-import com.bat.shop.common.utils.StringUtil;
+import com.bat.qmall.utils.StringUtil;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;

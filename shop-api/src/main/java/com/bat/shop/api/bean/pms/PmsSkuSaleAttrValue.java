@@ -12,12 +12,12 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class PmsSkuSaleAttrValue extends Model<PmsSkuSaleAttrValue> {
 
-    String id;
-    String skuId;
-    String saleAttrId;
-    String saleAttrValueId;
-    String saleAttrName;
-    String saleAttrValueName;
+    private String id;
+    private String skuId;
+    private String saleAttrId;
+    private String saleAttrValueId;
+    private String saleAttrName;
+    private String saleAttrValueName;
 
 
 }

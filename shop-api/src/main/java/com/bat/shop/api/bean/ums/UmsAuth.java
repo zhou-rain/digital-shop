@@ -9,23 +9,14 @@ import lombok.EqualsAndHashCode;
 public class UmsAuth extends Model<UmsAuth> {
 
     private Integer id;
-
     private Integer pid;
-
     private String url;
-
     private String perms;
-
     private String name;
-
     private String desc;
-
     private Integer type;
-
     private String icon;
-
     private Integer order;
-
     private Integer status;
 
 }

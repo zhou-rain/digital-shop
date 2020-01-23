@@ -16,28 +16,28 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class PmsSkuInfo extends Model<PmsSkuInfo> {
 
-    String id;
-    String productId;
-    BigDecimal price;
-    String skuName;
-    BigDecimal weight;
-    String skuDesc;
-    String catalog3Id;
-    String skuDefaultImg;
+    private String id;
+    private String productId;
+    private BigDecimal price;
+    private String skuName;
+    private BigDecimal weight;
+    private String skuDesc;
+    private String catalog3Id;
+    private String skuDefaultImg;
 
 
 
 	@TableField(exist = false)
-	String spuId;	//  SkuController下saveSkuInfo方法的实际接收productId值
+	private String spuId;	//  SkuController下saveSkuInfo方法的实际接收productId值
 
 	@TableField(exist = false)
-    List<PmsSkuImage> skuImageList;
+	private List<PmsSkuImage> skuImageList;
 
 	@TableField(exist = false)
-    List<PmsSkuAttrValue> skuAttrValueList;
+	private List<PmsSkuAttrValue> skuAttrValueList;
 
 	@TableField(exist = false)
-    List<PmsSkuSaleAttrValue> skuSaleAttrValueList;
+	private List<PmsSkuSaleAttrValue> skuSaleAttrValueList;
 
 
 

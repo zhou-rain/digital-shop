@@ -1,4 +1,4 @@
-package com.bat.shop.common.webUtils;
+package com.bat.qmall.webUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.bat.shop.common.utils;
+package com.bat.qmall.utils;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;

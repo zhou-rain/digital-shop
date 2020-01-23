@@ -12,12 +12,12 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class PmsSkuImage extends Model<PmsSkuImage> {
 
-    String id;
-    String skuId;
-    String imgName;
-    String imgUrl;
-    String spuImgId;
-    String isDefault;
+    private String id;
+    private String skuId;
+    private String imgName;
+    private String imgUrl;
+    private String spuImgId;
+    private String isDefault;
 
 
 }

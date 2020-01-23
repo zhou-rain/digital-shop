@@ -1,4 +1,4 @@
-package com.bat.shop.common.utils;
+package com.bat.qmall.utils;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;

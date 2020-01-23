@@ -8,16 +8,14 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class PmsProductSaleAttrValue extends Model<PmsProductSaleAttrValue> {
-    String id ;
 
-    String productId;
-
-    String saleAttrId;
-
-    String saleAttrValueName;
+	private String id ;
+	private String productId;
+	private String saleAttrId;
+	private String saleAttrValueName;
 
     @TableField(exist = false)
-    String isChecked;
+	private String isChecked;
 
 
 }

@@ -1,4 +1,4 @@
-package com.bat.qmall.cart;
+package com.bat.qmall;
 
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.mybatis.spring.annotation.MapperScan;

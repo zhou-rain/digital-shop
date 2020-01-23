@@ -3,7 +3,7 @@ package com.bat.qmall.order.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.bat.shop.api.bean.oms.OmsOrder;
 import com.bat.shop.api.service.oms.OrderService;
-import com.bat.shop.common.webUtils.Msg;
+import com.bat.qmall.webUtils.Msg;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

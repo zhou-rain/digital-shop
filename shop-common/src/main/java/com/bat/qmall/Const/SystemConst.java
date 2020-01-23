@@ -1,4 +1,4 @@
-package com.bat.shop.common.Const;
+package com.bat.qmall.Const;
 
 /**
  * @author: zhouR

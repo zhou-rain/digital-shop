@@ -6,7 +6,7 @@ package com.bat.shop.api.listener;
  * @function:  项目启动的时候，将一些常用的数据放在application中，整个项目共享
  */
 
-import com.bat.shop.common.Const.SystemConst;
+import com.bat.qmall.Const.SystemConst;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;

@@ -3,8 +3,8 @@ package com.bat.shop.api.service.pms;
 import com.bat.shop.api.bean.pms.PmsBaseAttrInfo;
 import com.bat.shop.api.bean.pms.PmsBaseAttrValue;
 import com.bat.shop.api.bean.pms.PmsBaseSaleAttr;
-import com.bat.shop.common.exception.EmptyException;
-import com.bat.shop.common.exception.ErrException;
+import com.bat.qmall.exception.EmptyException;
+import com.bat.qmall.exception.ErrException;
 
 import java.util.List;
 

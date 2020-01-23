@@ -9,15 +9,15 @@ import lombok.EqualsAndHashCode;
 public class PmsBrand  extends Model<PmsBrand> {
 
     private String id;
-    private String        name;
+    private String name;
     private String firstLetter;
-    private int         sort;
-    private int factoryStatus;
-    private int         showStatus;
-    private int productCount;
-    private String         productCommentCount;
+    private Integer sort;
+    private Integer factoryStatus;
+    private Integer showStatus;
+    private Integer productCount;
+    private String productCommentCount;
     private String logo;
-    private String         bigPic;
+    private String bigPic;
     private String brandStory;
 
 

@@ -6,9 +6,10 @@ import com.bat.shop.api.bean.oms.OmsCartItem;
 import com.bat.shop.api.bean.pms.PmsSkuInfo;
 import com.bat.shop.api.service.oms.CartService;
 import com.bat.shop.api.service.pms.SkuService;
-import com.bat.shop.common.Const.OmsConst;
-import com.bat.shop.common.utils.Validator;
-import com.bat.shop.common.webUtils.CookieUtil;
+import com.bat.qmall.Const.OmsConst;
+import com.bat.qmall.exception.MsgException;
+import com.bat.qmall.utils.Validator;
+import com.bat.qmall.webUtils.CookieUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -41,7 +42,7 @@ public class CartController {
 	 */
 	@RequestMapping("addToCart")
 	public String addToCart(String skuId, int quantity, HttpServletRequest request, HttpServletResponse response) {
-		List<OmsCartItem> omsOrderItems = new ArrayList<>();
+		List<OmsCartItem> cartList = new ArrayList<>();
 
 		//1、传递参数（商品skuId，商品数量）
 		//根据skuId调用skuService查询商品详情信息
@@ -67,8 +68,9 @@ public class CartController {
 
 
 		//3、判断用户是否登录
-		Integer memberId = null;    //没登录
-		//Integer memberId = 1; 		//登录了
+		//Integer memberId = null;    //没登录
+		Integer memberId = 1; 		//登录了
+		String memberNickName = "测试用户";
 
 		//4、根据用户登录信息，判断走cookie的分支还是db，购物车数据的写入操作
 		if (Validator.isEmpty(memberId)) {
@@ -78,15 +80,15 @@ public class CartController {
 
 			if (Validator.isEmpty(cartListCookie)) {
 				//如果cookie为空，直接添加
-				omsOrderItems.add(cartItem);
+				cartList.add(cartItem);
 			} else {
 				//cookie不为空
-				omsOrderItems = JSON.parseArray(cartListCookie, OmsCartItem.class);
+				cartList = JSON.parseArray(cartListCookie, OmsCartItem.class);
 
-				boolean exist = isInArray(skuId, omsOrderItems);
+				boolean exist = isInArray(skuId, cartList);
 				if(exist){
 					//有添加过相同的商品，将数量+新加的数量
-					for (OmsCartItem item : omsOrderItems) {
+					for (OmsCartItem item : cartList) {
 						if(item.getProductSkuId().equals(skuId)){
 							item.setQuantity(item.getQuantity()+quantity);
 							break;
@@ -94,18 +96,53 @@ public class CartController {
 					}
 				}else {
 					//新商品
-					omsOrderItems.add(cartItem);
+					cartList.add(cartItem);
 				}
 
 			}
 
 			//设置进cookie
-			String omsOrderItemsJson = JSON.toJSON(omsOrderItems).toString();
-			CookieUtil.setCookie(request, response, OmsConst.CART_COOKIE, omsOrderItemsJson, OmsConst.COOKIE_MAXAGE, true);
+			String cartListJson = JSON.toJSON(cartList).toString();
+			CookieUtil.setCookie(request, response, OmsConst.CART_COOKIE, cartListJson, OmsConst.COOKIE_MAXAGE, true);
 
 
 		} else {
 			//用户已经登录
+
+			//去数据库中，根据用户id和要添加的商品，其查询购物车有没有该项
+			OmsCartItem cart = cartService.getOmsCartItemByMemberIdAndSkuId(memberId,skuId);
+
+			if (Validator.isEmpty(cart)) {
+				//如果该用户没添加过这个商品
+
+				//直接添加购物车
+				cartItem.setMemberId(memberId);
+				cartItem.setMemberNickname(memberNickName);
+				try {
+					cartService.save(cartItem);
+				} catch (MsgException e) {
+					e.printStackTrace();
+				}
+
+
+			}else {
+				//该用户添加过这个商品
+
+				//数量相加
+				cart.setQuantity(cart.getQuantity()+quantity);
+				try {
+					cartService.save(cart);
+				} catch (MsgException e) {
+					e.printStackTrace();
+				}
+			}
+
+			//同步缓存
+			cartService.flushCacheByMemberId(memberId);
+
+
+
+
 
 
 		}

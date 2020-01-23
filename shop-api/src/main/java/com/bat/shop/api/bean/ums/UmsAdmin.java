@@ -23,7 +23,7 @@ public class UmsAdmin extends Model<UmsAdmin> {
 	private String realName;
 	private String phone;
 	private String email;
-	private int sex;
+	private Integer sex;
 	private Integer age;
 	private Date hireDate;
 	private Date creatDate;

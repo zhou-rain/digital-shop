@@ -14,8 +14,8 @@ public class OmsCartItem extends Model<OmsCartItem> {
 	private String id;
 	private String productId;
 	private String productSkuId;
-	private String memberId;
-	private int quantity;
+	private Integer memberId;
+	private Integer quantity;
 	private BigDecimal price;
 	private String sp1;
 	private String sp2;
@@ -27,7 +27,7 @@ public class OmsCartItem extends Model<OmsCartItem> {
 	private String memberNickname;
 	private Date createDate;
 	private Date modifyDate;
-	private int deleteStatus;
+	private Integer deleteStatus;
 	private String productCategoryId;
 	private String productBrand;
 	private String productSn;

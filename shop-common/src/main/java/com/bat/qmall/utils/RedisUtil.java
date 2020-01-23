@@ -1,4 +1,4 @@
-package com.bat.shop.common.utils;
+package com.bat.qmall.utils;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;

@@ -16,23 +16,14 @@ import java.util.Date;
 public class PaymentInfo extends Model<PaymentInfo> {
 
 	private String id;
-
 	private String outTradeNo;
-
 	private String orderId;
-
 	private String alipayTradeNo;
-
 	private BigDecimal totalAmount;
-
 	private String Subject;
-
 	private String paymentStatus;
-
 	private Date createTime;
-
 	private Date callbackTime;
-
 	private String callbackContent;
 
 }
