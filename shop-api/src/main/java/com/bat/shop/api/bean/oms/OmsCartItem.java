@@ -32,5 +32,6 @@ public class OmsCartItem extends Model<OmsCartItem> {
 	private String productBrand;
 	private String productSn;
 	private String productAttr;
+	private String isChecked;
 
 }

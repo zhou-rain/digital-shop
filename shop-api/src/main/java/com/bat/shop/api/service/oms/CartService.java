@@ -4,6 +4,8 @@ import com.bat.shop.api.bean.oms.OmsCartItem;
 import com.bat.qmall.exception.EmptyException;
 import com.bat.qmall.exception.ErrException;
 
+import java.util.List;
+
 /**
  * @author: zhouR
  * @date: Create in 2020/1/15 - 9:44
@@ -31,4 +33,16 @@ public interface CartService {
 	 */
 	void flushCacheByMemberId(Integer memberId);
 
+	/**
+	 * 根据用户id，获取购物车
+	 * @param memberId
+	 * @return
+	 */
+	List<OmsCartItem> getCartListByMemberId(Integer memberId);
+
+	/**
+	 * 更改购物车状态
+	 * @param omsCartItem
+	 */
+	void checkCart(OmsCartItem omsCartItem);
 }

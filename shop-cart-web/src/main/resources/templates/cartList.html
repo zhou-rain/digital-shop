@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>购物车</title>
-    <link rel="icon" href="/img/心04.png" type="/image/x-icon"/>
-    <link rel="stylesheet" href="/css/One_bdyStyle.css">
-    <link rel="stylesheet" href="/css/index.css">
-    <script src="/js/jquery-3.1.1.min.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="/css/One_mainFoot.css">
-    <link rel="stylesheet" href="/css/font-awesome-4.7.0/css/font-awesome.css" />
+    <link rel="icon" href="img/心04.png" type="/image/x-icon"/>
+    <link rel="stylesheet" href="css/One_bdyStyle.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/jquery-3.1.1.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="css/One_mainFoot.css">
+    <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.css" />
 </head>
 <body>
 <header>
@@ -53,7 +53,7 @@
             </div>
         </div>
         <div class="one_search_load"   th:if="${userId}==null" >
-            <img src="/img/shop_07.jpg" class="one_load_wraing">
+            <img src="img/shop_07.jpg" class="one_load_wraing">
             <span>您还没有登录！登录后购物车的商品将保存到您账号中</span>
             <a href="#"><input type="button" onclick="login()" value="立即登录" class="one_load_btn"></a>
         </div>
@@ -79,107 +79,12 @@
             </ul>
         </div>
 
-        <div class="One_ShopCon">
-            <ul>
-                <li  th:each="cartInfo:${cartList}">
-                    <div> </div>
+       <div id="cartListInner" th:include="cartListInner"></div>
 
-                    <div>
-                        <ol>
-                            <li><input type="checkbox"   class="check"  th:value="${cartInfo.skuId}"  onchange="checkSku(this)" th:checked="(${cartInfo.isChecked}==1)?'true':'false'" /></li>
-                            <li>
-                                <dt><img  th:src="${cartInfo.imgUrl}"  src="img\shop1.jpg" alt=""></dt>
-                                <dd  th:onclick="'toItem('+${cartInfo.skuId}+')'">
-                                    <p>
-                                        <span th:text="${cartInfo.skuName}" >TCL 55A950C 55英寸32核</span>
-                                    </p>
-                                </dd>
-                            </li>
-                            <li>
-                                <p class="dj" th:text="'￥'+${cartInfo.skuPrice}" >4599.00</p>
-                            </li>
-                            <li>
-                                <p>
-                                    <span>-</span>
-                                    <span th:text="${cartInfo.skuNum}">5</span>
-                                    <span>+</span>
-                                </p>
-                            </li>
-                            <li style="font-weight:bold"><p class="zj" th:text="'￥'+${cartInfo.totalPrice}"  >￥22995.00</p></li>
-                            <li>
-                                <p>删除</p>
-                            </li>
-                        </ol>
-                    </div>
-                </li>
-                <!--<li>
-                    <div>
-                    </div>
-                    <div>
-                        <ol>
-                            <li><input type="checkbox"  class="check"></li>
-                            <li>
-                                <dt><img src="img\shop1.jpg" alt=""></dt>
-                                <dd>
-                                    <p>
-
-                                        <span>TCL 55A950C 55英寸32核</span>
-                                        <span>尺码: 55时 超薄曲面 人工智能</span>
-                                    </p>
-                                    <p>人工智能 HDR曲面超薄4K电视金属机</p>
-
-                                </dd>
-                            </li>
-                            <li>
-                                <p class="dj">￥4599.00</p>
-
-                            </li>
-                            <li>
-                                <p>
-                                    <span>-</span>
-                                    <span>5</span>
-                                    <span>+</span>
-                                </p>
-
-                            </li>
-                            <li style="font-weight:bold"><p class="zj">￥22995.00</p></li>
-                            <li>
-                                <p>删除</p>
-
-                            </li>
-                        </ol>
-                    </div>
-                </li>-->
-
-            </ul>
-        </div>
-        <div class="One_ShopFootBuy fix1">
-            <div>
-                <ul>
-                    <li><input type="checkbox" class="allCheck"><span>全选</span></li>
-                    <li>删除选中的商品</li>
-                    <li>移到我的关注</li>
-                    <li>清除下柜商品</li>
-                </ul>
-            </div>
-            <div>
-                 <font style="color:#e64346;font-weight:bold;" class="sumNum"> </font>&nbsp;
-
-                <ul>
-                    <li><img src="img/buyNumleft.png" alt=""></li>
-                    <li><img src="img/buyNumright.png" alt=""></li>
-                </ul>
-            </div>
-            <div>
-                <ol>
-                    <li>总价:<span style="color:#e64346;font-weight:bold;font-size:16px;" class="fnt">￥0.00</span>  </li>
-
-                </ol>
-            </div>
-            <div><button  onclick="toTrade()" type="button">去结算</button></div>
-        </div>
     </div>
 </div>
+
+
 
 <div class="One_isDel">
     <p>
@@ -199,6 +104,7 @@
 
     </div>
 </div>
+
 <div class="One_moveGzIfNull">
     <p>
         <span>删除</span><span><img src="img/错误.png" alt=""></span>
@@ -208,6 +114,7 @@
         <dd>请至少选中一件商品！</dd>
     </dl>
 </div>
+
 <div class="One_moveMyGz">
     <p>
         <span>删除</span><span><img src="img/错误.png" alt=""></span>
@@ -262,14 +169,15 @@
 
 </div>
 </body>
-<script src="/js/index.js" charset="utf-8"></script>
+<script src="js/index.js" charset="utf-8"></script>
 <script type="text/javascript">
 
      function toTrade(){
-         window.location.href="http://cart.gmall.com:8087/toTrade";
+         window.location.href="http://localhost:8884/cart/toTrade";
     }
-    function toItem(skuId) {
-        window.location.href="http://item.gmall.com:8084/"+skuId+".html";
+    //跳转到商品详情页面
+    function toItem(productSkuId) {
+        window.location.href="http://localhost:8883/item/"+productSkuId+".html";
     }
 
     function login(){
@@ -278,15 +186,18 @@
     }
 
     function checkSku( chkbox){
-       var skuId= $(chkbox).attr("value");
+       var productSkuId= $(chkbox).attr("value");
        var checked=$(chkbox).prop("checked");
+
        var isCheckedFlag="0";
        if(checked){
            isCheckedFlag="1";
        }
-        var param="isChecked="+isCheckedFlag+"&"+"skuId="+skuId;
+        var param="isChecked="+isCheckedFlag+"&"+"productSkuId="+productSkuId;
         $.post("checkCart",param,function (data) {
-            sumSumPrice();
+            //服务器返回一个内嵌的页面
+            $("#cartListInner").html(data);
+           //sumSumPrice();
         });
 
     }

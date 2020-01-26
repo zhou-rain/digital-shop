@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,27 +35,17 @@ public class CartServiceImpl implements CartService {
 	RedisUtil redisUtil;
 
 
-	/**
-	 * 根据用户id 和商品skuId  获取购物车对象
-	 *
-	 * @param memberId
-	 * @param skuId
-	 * @return
-	 */
+	//根据用户id 和商品skuId  获取购物车对象
 	@Override
 	public OmsCartItem getOmsCartItemByMemberIdAndSkuId(Integer memberId, String skuId) {
 
 		QueryWrapper<OmsCartItem> wapper = new QueryWrapper<>();
-		wapper.eq("member_id",memberId)
-				.eq("product_sku_id",skuId);
+		wapper.eq("member_id", memberId)
+				.eq("product_sku_id", skuId);
 		return omsCartItemMapper.selectOne(wapper);
 	}
 
-	/**
-	 * 保存/更新  购物车
-	 *
-	 * @param cartItem
-	 */
+	//保存/更新  购物车
 	@Override
 	public void save(OmsCartItem cartItem) throws ErrException, EmptyException {
 
@@ -82,11 +73,7 @@ public class CartServiceImpl implements CartService {
 
 	}
 
-	/**
-	 * 根据用户id同步缓存
-	 *
-	 * @param memberId
-	 */
+	//根据用户id同步缓存
 	@Override
 	public void flushCacheByMemberId(Integer memberId) {
 		OmsCartItem omsCartItem = new OmsCartItem();
@@ -94,20 +81,70 @@ public class CartServiceImpl implements CartService {
 		QueryWrapper<OmsCartItem> wrapper = new QueryWrapper<>(omsCartItem);
 		List<OmsCartItem> cartItemList = omsCartItemMapper.selectList(wrapper);
 
-		System.out.println("cartItemList =》》》》》》》》》 " + cartItemList);
 
 		//同步到redis缓存中
 		Jedis jedis = redisUtil.getJedis();
 
 		//将数据以 user:memberId:cart	skuId-skuinfo 存入redis
-		Map<String,String> map = new HashMap<>();
+		Map<String, String> map = new HashMap<>();
 		for (OmsCartItem cartItem : cartItemList) {
 			map.put(cartItem.getId(), JSON.toJSONString(cartItem));
 		}
-		jedis.hmset(RedisConst.getCartKey(memberId),map);
-
-		System.out.println("map =》》》》》》》》》》》》》》》 " + map);
+		//先将缓存删除
+		jedis.del(RedisConst.getCartKey(memberId));
+		//将缓存加入
+		jedis.hmset(RedisConst.getCartKey(memberId), map);
 
 		jedis.close();
 	}
+
+	//根据用户id，从redis中获取购物车信息
+	@Override
+	public List<OmsCartItem> getCartListByMemberId(Integer memberId) {
+
+		List<OmsCartItem> omsCartItems = new ArrayList<>();
+		Jedis jedis = null;
+
+		try {
+			jedis = redisUtil.getJedis();
+
+			List<String> hvals = jedis.hvals(RedisConst.getCartKey(memberId));
+			for (String hval : hvals) {
+				OmsCartItem omsCartItem = JSON.parseObject(hval, OmsCartItem.class);
+				omsCartItems.add(omsCartItem);
+			}
+
+		} catch (Exception e) {
+			//logService.addErrLog(e.getMessage());
+			return null;
+		} finally {
+			if (jedis != null)
+				jedis.close();
+		}
+		return omsCartItems;
+	}
+
+
+
+	//更改购物车状态
+	@Override
+	public void checkCart(OmsCartItem entity) {
+
+		OmsCartItem omsCartItem = new OmsCartItem();
+		omsCartItem.setProductSkuId(entity.getProductSkuId());
+		omsCartItem.setMemberId(entity.getMemberId());
+
+		QueryWrapper<OmsCartItem> wrapper = new QueryWrapper<>(omsCartItem);
+
+		omsCartItemMapper.update(entity,wrapper);
+
+
+		//缓存同步
+		flushCacheByMemberId(entity.getMemberId());
+
+	}
+
+
+
+
 }

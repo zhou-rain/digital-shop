@@ -2,6 +2,8 @@ package com.bat.qmall.cart.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
+import com.bat.qmall.utils.CalcUtil;
+import com.bat.qmall.webUtils.WebUtil;
 import com.bat.shop.api.bean.oms.OmsCartItem;
 import com.bat.shop.api.bean.pms.PmsSkuInfo;
 import com.bat.shop.api.service.oms.CartService;
@@ -11,13 +13,18 @@ import com.bat.qmall.exception.MsgException;
 import com.bat.qmall.utils.Validator;
 import com.bat.qmall.webUtils.CookieUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author: zhouR
@@ -31,6 +38,94 @@ public class CartController {
 	CartService cartService;
 	@Reference
 	SkuService skuService;
+
+
+	/**
+	 * 修改购物车状态，返回给内嵌页
+	 * @param param
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/checkCart")
+	public String checkCart(@RequestParam Map<String,Object> param,Model model){
+		String isChecked = WebUtil.getParam(param, "isChecked");
+		String productSkuId = WebUtil.getParam(param, "productSkuId");
+
+		Integer memberId = 1;
+		//Integer memberId = "";
+
+		OmsCartItem omsCartItem = new OmsCartItem();
+		omsCartItem.setMemberId(memberId);
+		omsCartItem.setIsChecked(isChecked);
+		omsCartItem.setProductSkuId(productSkuId);
+		cartService.checkCart(omsCartItem);
+
+		List<OmsCartItem> cartList = cartService.getCartListByMemberId(memberId);
+
+		BigDecimal total_amount = getTotalAmount(cartList);
+		model.addAttribute("total_amount",total_amount);
+
+		model.addAttribute("cartList",cartList);
+
+		return "cartListInner";
+	}
+
+	/**
+	 *查询购物车
+	 * @return
+	 */
+	@RequestMapping("/cartList")
+	public String cartList(HttpServletRequest request,Model model){
+
+		List<OmsCartItem> cartList = new ArrayList<>();
+		//Integer memberId = null;
+		Integer memberId = 1;
+
+		if(Validator.isNotEmpty(memberId)){
+			//用户登录，查询数据库
+			cartList = cartService.getCartListByMemberId(memberId);
+		}else {
+			//用户未登录，查询cookie
+			String cartListCookie = CookieUtil.getCookieValue(request,OmsConst.CART_COOKIE, true);
+			if(Validator.isNotEmpty(cartListCookie)){
+				//如果cookie不为空
+				cartList = JSON.parseArray(cartListCookie, OmsCartItem.class);
+			}else {
+				//如果cookie为空
+			}
+		}
+		//总价格
+		BigDecimal total_amount = getTotalAmount(cartList);
+		model.addAttribute("total_amount",total_amount);
+
+		model.addAttribute("cartList",cartList);
+
+		return "cartList.html";
+	}
+
+
+	/**
+	 * 计算被勾选的总价格
+	 * @return
+	 */
+	private BigDecimal getTotalAmount(List<OmsCartItem> cartList){
+		BigDecimal total = new BigDecimal("0");
+
+		for (OmsCartItem omsCartItem : cartList) {
+			if(omsCartItem.getIsChecked().equals("1")){
+
+				BigDecimal quantity = new BigDecimal(omsCartItem.getQuantity());
+				BigDecimal multiply = omsCartItem.getPrice().multiply(quantity);
+
+				total = total.add(multiply);
+			}
+
+		}
+
+		return total;
+	}
+
+
 
 	/**
 	 * 购物车添加功能
