@@ -22,7 +22,6 @@ public class MyRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		StringUtil.printMethod();
 
 		//从PrincipalCollection中获取登录用户的信息
 		//利用登录的用户信息来给用户分配角色或权限

@@ -1,3 +1,4 @@
+/*
 package com.bat.qmall.config;
 
 import org.redisson.Redisson;
@@ -7,11 +8,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+*/
 /**
  * @author: zhouR
  * @date: Create in 2020/1/22 - 14:34
  * @function:
- */
+ *//*
+
 @Configuration
 public class RedissonConfig {
 
@@ -30,3 +33,4 @@ public class RedissonConfig {
 
 
 }
+*/

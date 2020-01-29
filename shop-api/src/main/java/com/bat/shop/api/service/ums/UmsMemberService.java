@@ -15,4 +15,17 @@ public interface UmsMemberService {
 
 	List<UmsMember> selectAll();
 
+	/**
+	 * 用户登录
+	 * @param umsMember
+	 * @return
+	 */
+	UmsMember login(UmsMember umsMember);
+
+	/**
+	 * 根据用户id  将token存入redis
+	 * @param token
+	 * @param memberId
+	 */
+	void addMemberTokenToRedisByMemberId(String token, Integer memberId);
 }

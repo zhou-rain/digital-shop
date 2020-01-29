@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 8883/item
+ * item.qmall.com  端口：8883
  */
 @SpringBootApplication
 @EnableDubbo

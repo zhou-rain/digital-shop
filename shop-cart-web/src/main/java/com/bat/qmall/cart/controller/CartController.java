@@ -2,7 +2,7 @@ package com.bat.qmall.cart.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
-import com.bat.qmall.utils.CalcUtil;
+import com.bat.qmall.annotations.LoginRequired;
 import com.bat.qmall.webUtils.WebUtil;
 import com.bat.shop.api.bean.oms.OmsCartItem;
 import com.bat.shop.api.bean.pms.PmsSkuInfo;
@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @author: zhouR
@@ -38,6 +37,19 @@ public class CartController {
 	CartService cartService;
 	@Reference
 	SkuService skuService;
+	
+	@RequestMapping("/toTrade")
+	@LoginRequired
+	public String toTrade(HttpServletRequest request){
+
+		Integer memberId = (Integer)request.getAttribute("memberId");
+		String nickname = (String)request.getAttribute("nickname");
+		System.out.println("memberId = " + memberId);
+		System.out.println("nickname = " + nickname);
+
+
+		return "toTrade";
+	}
 
 
 	/**
@@ -47,17 +59,19 @@ public class CartController {
 	 * @return
 	 */
 	@RequestMapping("/checkCart")
-	public String checkCart(@RequestParam Map<String,Object> param,Model model){
+	@LoginRequired(false)
+	public String checkCart(@RequestParam Map<String,Object> param,Model model,HttpServletRequest request){
 		String isChecked = WebUtil.getParam(param, "isChecked");
 		String productSkuId = WebUtil.getParam(param, "productSkuId");
 
-		Integer memberId = 1;
-		//Integer memberId = "";
+		Integer memberId = (Integer)request.getAttribute("memberId");
+		String nickname = (String)request.getAttribute("nickname");
 
 		OmsCartItem omsCartItem = new OmsCartItem();
 		omsCartItem.setMemberId(memberId);
 		omsCartItem.setIsChecked(isChecked);
 		omsCartItem.setProductSkuId(productSkuId);
+		omsCartItem.setMemberNickname(nickname);
 		cartService.checkCart(omsCartItem);
 
 		List<OmsCartItem> cartList = cartService.getCartListByMemberId(memberId);
@@ -74,12 +88,15 @@ public class CartController {
 	 *查询购物车
 	 * @return
 	 */
+
 	@RequestMapping("/cartList")
+	@LoginRequired(false)
 	public String cartList(HttpServletRequest request,Model model){
 
 		List<OmsCartItem> cartList = new ArrayList<>();
 		//Integer memberId = null;
-		Integer memberId = 1;
+		Integer memberId = (Integer)request.getAttribute("memberId");
+		String nickname = (String)request.getAttribute("nickname");
 
 		if(Validator.isNotEmpty(memberId)){
 			//用户登录，查询数据库
@@ -136,6 +153,7 @@ public class CartController {
 	 * Cookie：cartListCookie
 	 */
 	@RequestMapping("addToCart")
+	@LoginRequired(false)
 	public String addToCart(String skuId, int quantity, HttpServletRequest request, HttpServletResponse response) {
 		List<OmsCartItem> cartList = new ArrayList<>();
 
@@ -163,9 +181,8 @@ public class CartController {
 
 
 		//3、判断用户是否登录
-		//Integer memberId = null;    //没登录
-		Integer memberId = 1; 		//登录了
-		String memberNickName = "测试用户";
+		Integer memberId = (Integer)request.getAttribute("memberId");
+		String nickname = (String)request.getAttribute("nickname");
 
 		//4、根据用户登录信息，判断走cookie的分支还是db，购物车数据的写入操作
 		if (Validator.isEmpty(memberId)) {
@@ -212,7 +229,7 @@ public class CartController {
 
 				//直接添加购物车
 				cartItem.setMemberId(memberId);
-				cartItem.setMemberNickname(memberNickName);
+				cartItem.setMemberNickname(nickname);
 				try {
 					cartService.save(cartItem);
 				} catch (MsgException e) {
@@ -235,11 +252,6 @@ public class CartController {
 			//同步缓存
 			cartService.flushCacheByMemberId(memberId);
 
-
-
-
-
-
 		}
 
 		return "redirect:/success.html";
@@ -253,7 +265,7 @@ public class CartController {
 	 * @param list
 	 * @return
 	 */
-	boolean isInArray(String skuId, List<OmsCartItem> list) {
+	private boolean isInArray(String skuId, List<OmsCartItem> list) {
 		for (OmsCartItem item : list) {
 			if (item.getProductSkuId().equals(skuId)) {
 				return true;

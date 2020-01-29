@@ -20,6 +20,8 @@ public class UmsConst {
 
 	public static final String USER_CODE = "code";	//验证码
 
+	public static final String USER_JWT_KEY = "wosuibianxiederenzhengzhongxindekeyzhi";	//jwt认证中心的key值
+
 
 
 

@@ -34,6 +34,30 @@ public class RedisConst {
 		return "user:"+memberId+":cart";
 	}
 
+	/**
+	 * 获取用户信息的key值
+	 *
+	 * key:  username+password
+	 * val:	 用户信息
+	 *
+	 */
+	public static String getMemberInfoKey(String username,String password){
+		return "member:"+username+password+":info";
+	}
+
+	/**
+	 * 获取用户token的key值
+	 *
+	 * key:  memberId
+	 * val:	 token
+	 *
+	 */
+	public static String getMembertokenKey(Integer memberId){
+		return "member:"+memberId+":token";
+	}
+
+
+
 
 
 

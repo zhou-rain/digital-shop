@@ -1,18 +1,17 @@
-package com.bat.qmall.user;
+package com.bat.qmall;
 
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * 8886/user
- */
 @SpringBootApplication
+@MapperScan("com.bat.shop.api.mapper")
 @EnableDubbo
-public class ShopUserWebApplication {
+public class ShopUserServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ShopUserWebApplication.class, args);
+        SpringApplication.run(ShopUserServiceApplication.class, args);
     }
 
 }
