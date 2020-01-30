@@ -10,7 +10,7 @@
 <!--顶部logo-->
 
 <header>
-    <a href="http://www.baidu.com">
+    <a href="">
         <img src="img/logo1.jpg"/></a>
     <p>欢迎登录</p>
 
@@ -50,7 +50,9 @@
                         <img src="img/user_06.png" class="err_img2"/>
                         <input type="password" id="password" name="password" placeholder=" 密码" class="password"/>
                     </li>
+
                     <li class="bri">
+                        <a href="javascript:;" id="sina"><img src="img/sina.png" alt=""></a>
                         <a href="">忘记密码</a>
                     </li>
                     <li class="ent">
@@ -79,6 +81,13 @@
 
 </body>
 <script language="JavaScript">
+
+    $(document).on("click","#sina",function () {
+      $.get("/toGetCode",{},function (url) {
+          window.location.href = url;
+      })
+    });
+
     
     function submitLogin() {
         let username = $("#username").val();
@@ -90,7 +99,6 @@
         param.username = username;
         param.password = password;
         $.post("/login",param,function (token) {
-
             if(token=="fail"){
                 alert("用户名密码错误");
             }else {

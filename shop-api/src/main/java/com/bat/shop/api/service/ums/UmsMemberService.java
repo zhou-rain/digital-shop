@@ -28,4 +28,11 @@ public interface UmsMemberService {
 	 * @param memberId
 	 */
 	void addMemberTokenToRedisByMemberId(String token, Integer memberId);
+
+	/**
+	 * 添加
+	 * @param member
+	 * @return
+	 */
+	UmsMember addOauthMember(UmsMember member);
 }

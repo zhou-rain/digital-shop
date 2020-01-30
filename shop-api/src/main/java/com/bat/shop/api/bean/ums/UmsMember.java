@@ -31,8 +31,11 @@ public class UmsMember extends Model<UmsMember> {
 	private Integer growth;                  //成长值
 	private Integer luckeyCount;             //剩余抽奖次数
 	private Integer historyIntegration;      //历史积分数量
-	private Integer sourceType;              //用户来源
+
+	private String sourceType;               //用户来源
+	private String sourceUid;                //第三方表中的用户di
 	private String accessToken;              //其它网站给用户颁发的授权码
+	private String accessCode;               //第三方授权码
 
 
 }

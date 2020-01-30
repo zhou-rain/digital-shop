@@ -27,7 +27,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	 * @throws Exception
 	 */
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
 		/*
 			判断handler的类型是否为controller里面的方法，如果不是则直接放行
 			请求里面还带有js/css/images等请求的时候，那么它转换类型的时候就报错了。

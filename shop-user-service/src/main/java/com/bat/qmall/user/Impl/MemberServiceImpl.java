@@ -111,6 +111,58 @@ public class MemberServiceImpl implements UmsMemberService {
 	}
 
 	/**
+	 * 添加新浪用户
+	 * @param member
+	 * @return
+	 */
+	@Override
+	public UmsMember addOauthMember(UmsMember member) {
+
+		//先判定该用户的微博id是否存在，存在的话就不用保存了
+		String sourceUid = member.getSourceUid();
+		String sourceType = member.getSourceType();
+		boolean empty = checkEmpty(sourceUid,sourceType);
+		if(empty){
+			try {
+				//保存
+				int result = umsMemberMapper.insert(member);
+
+				if(result==1){
+					return member;
+				}
+
+			} catch (Exception e) {
+				return null;
+			}
+		}else {
+			//不为空
+			UmsMember entity = new UmsMember();
+			entity.setSourceUid(sourceUid);
+			QueryWrapper<UmsMember> wrapper = new QueryWrapper<>(entity);
+			return umsMemberMapper.selectOne(wrapper);
+		}
+
+		return null;
+	}
+
+
+	/**
+	 * 检查该用户的微博id是否存在， true-存在
+	 * @param sourceUid
+	 * @return
+	 */
+	private boolean checkEmpty(String sourceUid,String sourceType) {
+		UmsMember member = new UmsMember();
+		member.setSourceUid(sourceUid);
+		member.setSourceType(sourceType);
+		QueryWrapper<UmsMember> wrapper = new QueryWrapper<>(member);
+
+		List<UmsMember> umsMembers = umsMemberMapper.selectList(wrapper);
+		return umsMembers.isEmpty();
+	}
+
+
+	/**
 	 * 从数据库中查询用户登录信息
 	 *
 	 * @param umsMember

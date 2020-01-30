@@ -41,12 +41,12 @@ shop-api		提供接口  jar
 
 购物车
     shop-cart-service       端口：7884   dubbo端口2884
-    shop-cart-web   	    cart.qmall.com    端口：8884
+    shop-cart-web   	    cart.qmall.com:8884
 
 商品详情
     shop-item-web  		item.qmall.com  端口：8883
 
 用户认证中心
-    shop-userpass-web   	   passport.qmall.com 端口：8882
+    shop-userpass-web   	   userpass.qmall.com 端口：8882
 
 
