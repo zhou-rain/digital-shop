@@ -10,27 +10,27 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 public class OmsOrderItem extends Model<OmsOrderItem> {
 
-    private String id;
-    private String orderId;
-    private String orderSn;
+    private Integer id;
+    private Integer orderId;
+    private String orderSn;							//订单号，全世界唯一，供其他系统使用
     private String productId;
     private String productPic;
     private String productName;
     private String productBrand;
     private String productSn;
-    private String productPrice;
-    private Integer productQuantity;
-    private String productSkuId;
-    private String productSkuCode;
-    private String productCategoryId;
+    private BigDecimal productPrice;				//销售价格
+    private Integer productQuantity;				//购买数量
+    private String productSkuId;					//商品sku编号
+    private String productSkuCode;					//商品sku条码
+    private String productCategoryId;				//商品分类id
     private String sp1;
     private String sp2;
     private String sp3;
     private String promotionName;
     private BigDecimal promotionAmount;
     private BigDecimal couponAmount;
-    private BigDecimal integrationAmount;
-    private String realAmount;
+    private BigDecimal integrationAmount;			//积分优惠分解金额
+    private BigDecimal realAmount;						//该商品经过优惠后的分解金额
     private Integer giftIntegration;
     private Integer giftGrowth;
     private String productAttr;

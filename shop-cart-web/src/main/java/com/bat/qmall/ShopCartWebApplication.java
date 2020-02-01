@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- *   cart.qmall.com:8884
+ *   cart.qmall.com:8884/cartList
  */
 @SpringBootApplication
 @EnableDubbo

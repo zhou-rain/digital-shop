@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -200,6 +201,20 @@ public class SkuServiceImpl implements SkuService {
 	public List<PmsSkuInfo> getSkuSaleAttrValueListBySpu(String productId) {
 
 		return pmsSkuInfoMapper.selectSkuSaleAttrValueListBySpu(productId);
+	}
+
+	/**
+	 * 根据skuId 检测 价格price 是否正确
+	 * @param productSkuId
+	 * @param price
+	 * @return
+	 */
+	@Override
+	public boolean checkPrice(String productSkuId, BigDecimal price) {
+
+		PmsSkuInfo pmsSkuInfo = pmsSkuInfoMapper.selectById(productSkuId);
+
+		return price.compareTo(pmsSkuInfo.getPrice())==0;
 	}
 
 

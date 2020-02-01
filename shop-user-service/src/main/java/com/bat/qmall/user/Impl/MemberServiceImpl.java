@@ -7,7 +7,9 @@ import com.bat.qmall.Const.RedisConst;
 import com.bat.qmall.utils.RedisUtil;
 import com.bat.qmall.utils.Validator;
 import com.bat.shop.api.bean.ums.UmsMember;
+import com.bat.shop.api.bean.ums.UmsMemberReceiveAddress;
 import com.bat.shop.api.mapper.ums.UmsMemberMapper;
+import com.bat.shop.api.mapper.ums.UmsMemberReceiveAddressMapper;
 import com.bat.shop.api.service.ums.UmsMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,6 +30,8 @@ public class MemberServiceImpl implements UmsMemberService {
 	UmsMemberMapper umsMemberMapper;
 	@Autowired
 	RedisUtil redisUtil;
+	@Autowired
+	UmsMemberReceiveAddressMapper umsMemberReceiveAddressMapper;
 
 
 	@Override
@@ -143,6 +147,29 @@ public class MemberServiceImpl implements UmsMemberService {
 		}
 
 		return null;
+	}
+
+	/**
+	 * 根据用户id  获取收货地址
+	 * @param memberId
+	 * @return
+	 */
+	@Override
+	public List<UmsMemberReceiveAddress> getReceiveAddressByMemberId(Integer memberId) {
+		UmsMemberReceiveAddress address = new UmsMemberReceiveAddress();
+		address.setMemberId(memberId);
+		QueryWrapper<UmsMemberReceiveAddress> wapper = new QueryWrapper<>(address);
+		return umsMemberReceiveAddressMapper.selectList(wapper);
+	}
+
+	/**
+	 * 根据地址id获取单个地址
+	 * @param addressId
+	 * @return
+	 */
+	@Override
+	public UmsMemberReceiveAddress getReceiveAddressById(Integer addressId) {
+		return umsMemberReceiveAddressMapper.selectById(addressId);
 	}
 
 

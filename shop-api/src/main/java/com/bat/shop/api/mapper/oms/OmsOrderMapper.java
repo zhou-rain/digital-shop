@@ -8,6 +8,6 @@ import com.bat.shop.api.bean.oms.OmsOrder;
  * @date: Create in 2020/1/14 - 15:05
  * @function:
  */
-public interface OrderMapper extends BaseMapper<OmsOrder> {
+public interface OmsOrderMapper extends BaseMapper<OmsOrder> {
 
 }

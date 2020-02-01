@@ -49,10 +49,11 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public void save(OmsCartItem cartItem) throws ErrException, EmptyException {
 
+		Integer memberId = cartItem.getMemberId();
 
 		if (Validator.isEmpty(cartItem.getId())) {
 			//新增
-			if (Validator.isEmpty(cartItem.getMemberId())) {
+			if (Validator.isEmpty(memberId)) {
 				throw new EmptyException("用户id不能为空");
 			}
 			try {
@@ -68,9 +69,8 @@ public class CartServiceImpl implements CartService {
 			} catch (Exception e) {
 				throw new ErrException();
 			}
-
 		}
-
+		flushCacheByMemberId(memberId);
 	}
 
 	//根据用户id同步缓存
@@ -81,22 +81,29 @@ public class CartServiceImpl implements CartService {
 		QueryWrapper<OmsCartItem> wrapper = new QueryWrapper<>(omsCartItem);
 		List<OmsCartItem> cartItemList = omsCartItemMapper.selectList(wrapper);
 
+		if(cartItemList==null){
+			return;
+		}else {
+			//同步到redis缓存中
+			Jedis jedis = redisUtil.getJedis();
 
-		//同步到redis缓存中
-		Jedis jedis = redisUtil.getJedis();
-
-		//将数据以 user:memberId:cart	skuId-skuinfo 存入redis
-		Map<String, String> map = new HashMap<>();
-		for (OmsCartItem cartItem : cartItemList) {
-			map.put(cartItem.getId(), JSON.toJSONString(cartItem));
+			//将数据以 user:memberId:cart	skuId-skuinfo 存入redis
+			Map<String, String> map = new HashMap<>();
+			for (OmsCartItem cartItem : cartItemList) {
+				map.put(cartItem.getId(), JSON.toJSONString(cartItem));
+			}
+			//先将缓存删除
+			jedis.del(RedisConst.getCartKey(memberId));
+			//将缓存加入
+			jedis.hmset(RedisConst.getCartKey(memberId), map);
+			jedis.close();
 		}
-		//先将缓存删除
-		jedis.del(RedisConst.getCartKey(memberId));
-		//将缓存加入
-		jedis.hmset(RedisConst.getCartKey(memberId), map);
 
-		jedis.close();
+
+
+
 	}
+
 
 	//根据用户id，从redis中获取购物车信息
 	@Override
@@ -137,7 +144,6 @@ public class CartServiceImpl implements CartService {
 		QueryWrapper<OmsCartItem> wrapper = new QueryWrapper<>(omsCartItem);
 
 		omsCartItemMapper.update(entity,wrapper);
-
 
 		//缓存同步
 		flushCacheByMemberId(entity.getMemberId());

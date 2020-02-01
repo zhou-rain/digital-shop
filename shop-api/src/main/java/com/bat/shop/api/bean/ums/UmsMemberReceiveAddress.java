@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 public class UmsMemberReceiveAddress extends Model<UmsMemberReceiveAddress> {
 
 	private String id;
-	private String memberId;
+	private Integer memberId;
 	private String name;
 	private String phoneNumber;
 	private Integer defaultStatus;

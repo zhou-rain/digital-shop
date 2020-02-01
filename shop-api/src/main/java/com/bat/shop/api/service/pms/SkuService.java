@@ -3,6 +3,7 @@ package com.bat.shop.api.service.pms;
 import com.bat.shop.api.bean.pms.PmsSkuInfo;
 import com.bat.qmall.exception.ErrException;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -34,4 +35,6 @@ public interface SkuService {
 	 * @return
 	 */
 	List<PmsSkuInfo> getSkuSaleAttrValueListBySpu(String productId);
+
+	boolean checkPrice(String productSkuId, BigDecimal price);
 }

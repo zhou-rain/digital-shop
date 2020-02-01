@@ -38,18 +38,7 @@ public class CartController {
 	@Reference
 	SkuService skuService;
 	
-	@RequestMapping("/toTrade")
-	@LoginRequired
-	public String toTrade(HttpServletRequest request){
 
-		Integer memberId = (Integer)request.getAttribute("memberId");
-		String nickname = (String)request.getAttribute("nickname");
-		System.out.println("memberId = " + memberId);
-		System.out.println("nickname = " + nickname);
-
-
-		return "toTrade";
-	}
 
 
 	/**
@@ -60,25 +49,52 @@ public class CartController {
 	 */
 	@RequestMapping("/checkCart")
 	@LoginRequired(false)
-	public String checkCart(@RequestParam Map<String,Object> param,Model model,HttpServletRequest request){
+	public String checkCart(@RequestParam Map<String,Object> param,Model model,HttpServletRequest request,HttpServletResponse response){
 		String isChecked = WebUtil.getParam(param, "isChecked");
 		String productSkuId = WebUtil.getParam(param, "productSkuId");
 
 		Integer memberId = (Integer)request.getAttribute("memberId");
 		String nickname = (String)request.getAttribute("nickname");
 
-		OmsCartItem omsCartItem = new OmsCartItem();
-		omsCartItem.setMemberId(memberId);
-		omsCartItem.setIsChecked(isChecked);
-		omsCartItem.setProductSkuId(productSkuId);
-		omsCartItem.setMemberNickname(nickname);
-		cartService.checkCart(omsCartItem);
+		List<OmsCartItem> cartList;
 
-		List<OmsCartItem> cartList = cartService.getCartListByMemberId(memberId);
+		if(Validator.isNotEmpty(memberId)){
+			//用户登录
+			OmsCartItem omsCartItem = new OmsCartItem();
+			omsCartItem.setMemberId(memberId);
+			omsCartItem.setIsChecked(isChecked);
+			omsCartItem.setProductSkuId(productSkuId);
+			omsCartItem.setMemberNickname(nickname);
+			//修改购物车状态
+			cartService.checkCart(omsCartItem);
 
-		BigDecimal total_amount = getTotalAmount(cartList);
+			cartList = cartService.getCartListByMemberId(memberId);
+		
+		}else {//用户没登录
+
+			//从cookie中获取购物车
+			String cookieValue = CookieUtil.getCookieValue(request, OmsConst.CART_COOKIE, true);
+			cartList = JSON.parseArray(cookieValue,OmsCartItem.class);
+			//改变当前勾选状态
+			if(cartList!=null){
+				for (OmsCartItem omsCartItem : cartList) {
+					if(productSkuId.equals(omsCartItem.getProductSkuId())){
+						omsCartItem.setIsChecked(isChecked);
+					}
+				}
+			}
+			//重新写入cookie
+			String cartListString = JSON.toJSONString(cartList);
+			CookieUtil.setCookie(request,response,OmsConst.CART_COOKIE,cartListString,OmsConst.COOKIE_MAXAGE,true);
+
+		}
+
+		BigDecimal total_amount = null;
+		if(cartList!=null){
+			total_amount = getTotalAmount(cartList);
+		}
+
 		model.addAttribute("total_amount",total_amount);
-
 		model.addAttribute("cartList",cartList);
 
 		return "cartListInner";
@@ -98,8 +114,10 @@ public class CartController {
 		Integer memberId = (Integer)request.getAttribute("memberId");
 		String nickname = (String)request.getAttribute("nickname");
 
+
 		if(Validator.isNotEmpty(memberId)){
 			//用户登录，查询数据库
+			//cartService.flushCacheByMemberId(memberId);
 			cartList = cartService.getCartListByMemberId(memberId);
 		}else {
 			//用户未登录，查询cookie
@@ -129,7 +147,7 @@ public class CartController {
 		BigDecimal total = new BigDecimal("0");
 
 		for (OmsCartItem omsCartItem : cartList) {
-			if(omsCartItem.getIsChecked().equals("1")){
+			if(omsCartItem.getIsChecked().equals(OmsConst.CHECK)){
 
 				BigDecimal quantity = new BigDecimal(omsCartItem.getQuantity());
 				BigDecimal multiply = omsCartItem.getPrice().multiply(quantity);
@@ -178,6 +196,7 @@ public class CartController {
 		cartItem.setProductSkuCode("11111111111");               //条形码
 		cartItem.setProductSkuId(skuId);                         //skuId
 		cartItem.setQuantity(quantity);                          //购买数量
+		cartItem.setIsChecked(OmsConst.CHECK);					 //是否勾选
 
 
 		//3、判断用户是否登录
@@ -196,7 +215,6 @@ public class CartController {
 			} else {
 				//cookie不为空
 				cartList = JSON.parseArray(cartListCookie, OmsCartItem.class);
-
 				boolean exist = isInArray(skuId, cartList);
 				if(exist){
 					//有添加过相同的商品，将数量+新加的数量
@@ -210,7 +228,6 @@ public class CartController {
 					//新商品
 					cartList.add(cartItem);
 				}
-
 			}
 
 			//设置进cookie
@@ -250,6 +267,7 @@ public class CartController {
 			}
 
 			//同步缓存
+
 			cartService.flushCacheByMemberId(memberId);
 
 		}

@@ -55,6 +55,7 @@ public  class CalcUtil {
         return b1.multiply(b2).doubleValue();
     }
 
+
     /**
      * 提供（相对）精确的除法运算，当发生除不尽的情况时，精确到 小数点以后10位，以后的数字四舍五入。
      *

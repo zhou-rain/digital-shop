@@ -44,9 +44,11 @@ shop-api		提供接口  jar
     shop-cart-web   	    cart.qmall.com:8884
 
 商品详情
-    shop-item-web  		item.qmall.com  端口：8883
+    shop-item-web  		item.qmall.com:8883
 
 用户认证中心
-    shop-userpass-web   	   userpass.qmall.com 端口：8882
+    shop-userpass-web   userpass.qmall.com:8882
 
+支付中心
+    shop-payment        payment.qmall.com:8881
 

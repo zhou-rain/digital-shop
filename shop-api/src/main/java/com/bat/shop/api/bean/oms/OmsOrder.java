@@ -1,18 +1,20 @@
 package com.bat.shop.api.bean.oms;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class OmsOrder extends Model<OmsOrder> {
 
-	private String id;
-	private String memberId;
+	private Integer id;
+	private Integer memberId;
 	private String couponId;
 	private String orderSn;
 	private Date createTime;
@@ -55,5 +57,8 @@ public class OmsOrder extends Model<OmsOrder> {
 	private Date receiveTime;
 	private Date commentTime;
 	private Date modifyTime;
+
+	@TableField(exist = false)
+	private List<OmsOrderItem> omsOrderItemList;
 
 }

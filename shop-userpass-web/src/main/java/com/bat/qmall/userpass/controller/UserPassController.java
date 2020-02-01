@@ -24,7 +24,8 @@ import java.util.Map;
 /**
  * @author: zhouR
  * @date: Create in 2020/1/27 - 1:07
- * @function:
+ * @function:  登录、授权中心
+ *
  */
 @Controller
 public class UserPassController {
@@ -110,6 +111,10 @@ public class UserPassController {
 
 	/**
 	 * 登录
+	 *
+	 * 1、记日志
+	 * 2、合并购物车
+	 * 3、发短信等
 	 * @param umsMember
 	 * @return
 	 */

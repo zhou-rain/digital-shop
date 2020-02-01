@@ -1,6 +1,7 @@
 package com.bat.shop.api.service.ums;
 
 import com.bat.shop.api.bean.ums.UmsMember;
+import com.bat.shop.api.bean.ums.UmsMemberReceiveAddress;
 
 import java.util.List;
 
@@ -35,4 +36,20 @@ public interface UmsMemberService {
 	 * @return
 	 */
 	UmsMember addOauthMember(UmsMember member);
+
+	/**
+	 * 获取用户收货地址
+	 * @param memberId
+	 * @return
+	 */
+	List<UmsMemberReceiveAddress> getReceiveAddressByMemberId(Integer memberId);
+
+	/**
+	 * 根据地址id获取单个地址
+	 * @param addressId
+	 * @return
+	 */
+	UmsMemberReceiveAddress getReceiveAddressById(Integer addressId);
+
+
 }

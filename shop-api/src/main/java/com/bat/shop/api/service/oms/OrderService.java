@@ -1,6 +1,10 @@
 package com.bat.shop.api.service.oms;
 
+import com.bat.shop.api.bean.oms.OmsCartItem;
 import com.bat.shop.api.bean.oms.OmsOrder;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author: zhouR
@@ -8,5 +12,26 @@ import com.bat.shop.api.bean.oms.OmsOrder;
  * @function:
  */
 public interface OrderService {
-	OmsOrder getEntityById(int i);
+
+	/**
+	 * 生成交易码
+	 * @param memberId
+	 * @param cartListChecked
+	 * @return
+	 */
+	String createTradeCode(Integer memberId,List<OmsCartItem> cartListChecked);
+
+	/**
+	 * 检查交易码
+	 * @param memberId
+	 * @param cartListChecked
+	 * @return
+	 */
+	boolean checkTradeCode(Integer memberId,List<OmsCartItem> cartListChecked,String tradeCode);
+
+	/**
+	 * 保存订单
+	 * @param omsOrder
+	 */
+	void saveOrder(OmsOrder omsOrder);
 }

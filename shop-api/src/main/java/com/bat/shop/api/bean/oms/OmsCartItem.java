@@ -32,6 +32,6 @@ public class OmsCartItem extends Model<OmsCartItem> {
 	private String productBrand;
 	private String productSn;
 	private String productAttr;
-	private String isChecked;
+	private String isChecked;		//购物车选中状态   1-选中  0未选中
 
 }
