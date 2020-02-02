@@ -15,15 +15,16 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 public class PaymentInfo extends Model<PaymentInfo> {
 
-	private String id;
-	private String outTradeNo;
-	private String orderId;
-	private String alipayTradeNo;
-	private BigDecimal totalAmount;
-	private String Subject;
-	private String paymentStatus;
-	private Date createTime;
+	private Integer id;
+	private String orderSn;			//对外订单号
+	private Integer orderId;		//订单id
+	private String alipayTradeNo;	//支付宝交易编号
+	private BigDecimal totalAmount;	//支付金额
+	private String Subject;			//交易内容
+	private String paymentStatus;	//交易状态
+	private Date createTime;		//创建时间
+	private Date confirmTime;		//提交时间
+	private String callbackContent;	//回调信息
 	private Date callbackTime;
-	private String callbackContent;
 
 }

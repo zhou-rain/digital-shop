@@ -2,6 +2,7 @@ package com.bat.qmall.order.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.bat.qmall.utils.RedisUtil;
 import com.bat.shop.api.bean.oms.OmsCartItem;
 import com.bat.shop.api.bean.oms.OmsOrder;
@@ -120,6 +121,36 @@ public class OrderServiceImpl implements OrderService {
 		}
 
 
+
+	}
+
+	/**
+	 * 根据对外订单号获取订单详情
+	 * @param outTradeNo
+	 * @return
+	 */
+	@Override
+	public OmsOrder getOrderByOutTradeNo(String outTradeNo) {
+		OmsOrder omsOrder = new OmsOrder();
+		omsOrder.setOrderSn(outTradeNo);
+		QueryWrapper<OmsOrder> wrapper = new QueryWrapper<>(omsOrder);
+		return omsOrderMapper.selectOne(wrapper);
+	}
+
+	/**
+	 * 根据对外订单号修改订单状态
+	 * @param outTradeNo
+	 * @param status
+	 */
+	@Override
+	public void updateStatusByOutTradeNo(String outTradeNo,Integer status) {
+
+		OmsOrder entity = new OmsOrder();
+		entity.setStatus(status);
+
+		QueryWrapper<OmsOrder> wrapper = new QueryWrapper<>();
+		wrapper.eq("order_sn",outTradeNo);
+		omsOrderMapper.update(entity,wrapper);
 
 	}
 

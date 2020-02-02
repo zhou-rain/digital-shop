@@ -35,7 +35,7 @@ public class OmsConst {
 	public static final int ORDER_DELETED = 1;
 
 	/**
-	 * status 订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单
+	 * status 订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单 6->支付失败
 	 */
 	public static final int STATUS_WILL_PAY = 0;
 	public static final int STATUS_WILL_SEND = 1;
@@ -43,6 +43,7 @@ public class OmsConst {
 	public static final int STATUS_FINISH = 3;
 	public static final int STATUS_CLOSED = 4;
 	public static final int STATUS_DISABLED = 5;
+	public static final int STATUS_PAY_FAIL = 6;
 
 	/**
 	 * order_type	订单类型：0->正常订单；1->秒杀订单

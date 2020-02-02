@@ -34,4 +34,17 @@ public interface OrderService {
 	 * @param omsOrder
 	 */
 	void saveOrder(OmsOrder omsOrder);
+
+	/**
+	 * 根据对外订单号获取订单详情
+	 * @param outTradeNo
+	 * @return
+	 */
+	OmsOrder getOrderByOutTradeNo(String outTradeNo);
+
+	/**
+	 * 根据对外订单号修改订单状态
+	 * @param outTradeNo
+	 */
+	void updateStatusByOutTradeNo(String outTradeNo,Integer status);
 }

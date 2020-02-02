@@ -84,8 +84,8 @@ public class OrderController {
 			omsOrder.setStatus(OmsConst.STATUS_WILL_PAY);                    //订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单
 			omsOrder.setCommentTime(new Date());                            //订单创建时间
 
-			String orderTradeNo = orderTradeNo();
-			omsOrder.setOrderSn(orderTradeNo);                                    //订单编号
+			String outTradeNo = outTradeNo();
+			omsOrder.setOrderSn(outTradeNo);                                    //订单编号
 
 
 			OmsOrderItem omsOrderItem = new OmsOrderItem();
@@ -105,7 +105,7 @@ public class OrderController {
 				omsOrderItem.setProductName(omsCartItem.getProductName());        //商品名称
 				omsOrderItem.setProductPrice(omsCartItem.getPrice());            //单一商品的价格
 				omsOrderItem.setProductQuantity(omsCartItem.getQuantity());        //单一商品的数量
-				omsOrderItem.setOrderSn(orderTradeNo);                            //订单号  供其他系统使用
+				omsOrderItem.setOrderSn(outTradeNo);                            //订单号  供其他系统使用
 				omsOrderItem.setProductCategoryId(omsCartItem.getProductCategoryId());
 				omsOrderItem.setRealAmount(calcRealAmount(omsCartItem));        //减免后的最终总价格
 				omsOrderItem.setProductSkuCode("11111");                        //商品条形码
@@ -148,7 +148,7 @@ public class OrderController {
 
 
 			//重定向到支付系统
-			return "redirect:http://payment.qmall.com:8881/index?orderTradeNo="+orderTradeNo+"&totalAmount="+totalAmount;
+			return "redirect:http://payment.qmall.com:8881/index?outTradeNo="+outTradeNo+"&totalAmount="+totalAmount;
 
 		} else {
 			//交易码过期
@@ -284,7 +284,7 @@ public class OrderController {
 	 *
 	 * @return
 	 */
-	private String orderTradeNo() {
+	private String outTradeNo() {
 
 		return "digital" + UUID.randomUUID().toString().replaceAll("-", "").substring(16) + DateUtil.getTimesPlus();
 
