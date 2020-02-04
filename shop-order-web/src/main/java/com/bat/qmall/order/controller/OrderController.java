@@ -82,7 +82,7 @@ public class OrderController {
 			omsOrder.setAutoConfirmDay(7); //自动确认收货时间
 			omsOrder.setConfirmStatus(OmsConst.CONFIRM_STATUS_NOT_SURE);    //订单确认状态
 			omsOrder.setStatus(OmsConst.STATUS_WILL_PAY);                    //订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单
-			omsOrder.setCommentTime(new Date());                            //订单创建时间
+			omsOrder.setCreateTime(new Date());							//订单创建时间
 
 			String outTradeNo = outTradeNo();
 			omsOrder.setOrderSn(outTradeNo);                                    //订单编号
@@ -126,6 +126,8 @@ public class OrderController {
 			omsOrder.setDeleteStatus(OmsConst.ORDER_NOT_DELETED);     //订单删除状态
 			omsOrder.setMemberId(memberId);                           //用户id
 			omsOrder.setReceiverName(nickname);                       //用户昵称姓名
+			//todo 用户登录名
+			//omsOrder.setMemberUsername();							  //用户登录名
 			omsOrder.setNote(orderComment);                       	  //订单备注
 			//omsOrder.setFreightAmount();							  //运费，在订单生成后物流系统写进来
 			omsOrder.setOrderType(orderType);                         //订单类型：0->正常订单；1->秒杀订单

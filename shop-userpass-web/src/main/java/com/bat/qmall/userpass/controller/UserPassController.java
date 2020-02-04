@@ -6,6 +6,7 @@ import com.bat.qmall.Const.RedisConst;
 import com.bat.qmall.Const.UmsConst;
 import com.bat.qmall.plugin.SinaUtil;
 import com.bat.qmall.utils.Validator;
+import com.bat.qmall.webUtils.CookieUtil;
 import com.bat.qmall.webUtils.JwtUtil;
 import com.bat.qmall.webUtils.Msg;
 import com.bat.qmall.webUtils.WebUtil;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +51,7 @@ public class UserPassController {
 	 * @return
 	 */
 	@RequestMapping("/sinalogin")
-	public String sinalogin(String code,HttpServletRequest request){
+	public String sinalogin(String code, HttpServletRequest request, HttpServletResponse response){
 
 		//http://userpass.qmall.com:8882/sinalogin?code=687713f4464adfd249177d53a78a714f
 
@@ -82,8 +84,15 @@ public class UserPassController {
 			token = getJwtToken(savedEntity,ip);
 		}
 
+		//将token放入cookie中
+		if(Validator.isNotEmpty(token)){
+			CookieUtil.setCookie(request,response,"oldToken",token,60*60*2,true);
+		}
+
+		return "redirect:http://item.qmall.com:8883/11.html";
+
 		//并且重定向到某个页面，携带该token
-		return "redirect:http://cart.qmall.com:8884/cartList?token="+token;
+		//return "redirect:http://item.qmall.com:8883/11.html?token="+token;
 	}
 
 

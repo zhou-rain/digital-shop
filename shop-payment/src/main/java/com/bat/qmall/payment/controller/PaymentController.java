@@ -48,21 +48,15 @@ public class PaymentController {
 
 		PaymentInfo paymentInfo = new PaymentInfo();
 		paymentInfo.setOrderSn(outTradeNo);
-		paymentInfo.setPaymentStatus(paymentStatus);
+		paymentInfo.setPaymentStatus(paymentStatus); //1-成功  6-失败
 		paymentInfo.setAlipayTradeNo("这是支付宝返回的交易编号");
 		paymentInfo.setConfirmTime(new Date());		//提交时间
 
 		paymentService.updatePaymentInfoByOutTradeNo(paymentInfo);
 
 
-		Integer status;
-		if("支付失败".equals(paymentStatus)){
-			status = OmsConst.STATUS_PAY_FAIL;		//支付失败
-		}else {
-			status = OmsConst.STATUS_WILL_SEND;		//待发货
-		}
-		orderService.updateStatusByOutTradeNo(outTradeNo,status);
-
+		//支付成功后，引起的系统服务——>订单服务更新——>库存服务——>物流服务
+		//调用mq发送支付成功的消息
 
 		model.addAttribute("paymentStatus",paymentStatus);
 		return "finish";
@@ -138,5 +132,4 @@ public class PaymentController {
 
 		return "这是商品信息简述"+outTradeNo;
 	}
-
 }

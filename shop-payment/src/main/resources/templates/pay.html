@@ -16,14 +16,14 @@
 <!--支付成功-->
 <form action="/alipay/callback/return" method="post" id="success_form">
     <input type="hidden" th:value="${out_trade_no}" name="outTradeNo" >
-    <input type="hidden" value="支付成功" name="paymentStatus">  <!--支付成功 -->
+    <input type="hidden" value="1" name="paymentStatus">  <!--支付成功 -->
     <button type="submit">支付成功</button>
 </form>
 
 <!--支付失败-->
 <form action="/alipay/callback/return" method="post" id="fail_form">
     <input type="hidden" th:value="${out_trade_no}" name="outTradeNo" >
-    <input type="hidden" value="支付失败" name="paymentStatus"> <!--支付失败 -->
+    <input type="hidden" value="6" name="paymentStatus"> <!--支付失败 -->
     <button type="submit">支付失败</button>
 </form>
 
