@@ -129,7 +129,7 @@ public class UserPassController {
 	 */
 	@RequestMapping("/login")
 	@ResponseBody
-	public String login(UmsMember umsMember, HttpServletRequest request){
+	public String login(UmsMember umsMember, HttpServletRequest request,HttpServletResponse response){
 		String token;
 
 		//调用用户服务，验证用户名和密码
@@ -142,6 +142,10 @@ public class UserPassController {
 
 			token = getJwtToken(loginMember,ip);
 
+			//将token放入cookie中
+			if(Validator.isNotEmpty(token)){
+				CookieUtil.setCookie(request,response,"oldToken",token,60*60*2,true);
+			}
 		}else {
 			//登录失败
 			token="fail";

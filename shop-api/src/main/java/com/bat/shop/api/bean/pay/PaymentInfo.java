@@ -21,7 +21,7 @@ public class PaymentInfo extends Model<PaymentInfo> {
 	private String alipayTradeNo;	//支付宝交易编号
 	private BigDecimal totalAmount;	//支付金额
 	private String Subject;			//交易内容
-	private String paymentStatus;	//交易状态
+	private String paymentStatus;	//交易状态   1-支付成功 6-失败
 	private Date createTime;		//创建时间
 	private Date confirmTime;		//提交时间
 	private String callbackContent;	//回调信息

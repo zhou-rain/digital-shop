@@ -5,6 +5,7 @@ import com.bat.qmall.Const.OmsConst;
 import com.bat.qmall.annotations.LoginRequired;
 import com.bat.qmall.utils.CalcUtil;
 import com.bat.qmall.utils.DateUtil;
+import com.bat.qmall.utils.Validator;
 import com.bat.qmall.webUtils.WebUtil;
 import com.bat.shop.api.bean.oms.OmsCartItem;
 import com.bat.shop.api.bean.oms.OmsOrder;
@@ -64,6 +65,13 @@ public class OrderController {
 
 		Integer memberId = (Integer) request.getAttribute("memberId");
 		String nickname = (String) request.getAttribute("nickname");
+		
+		
+		//收货地址为空
+		/*if(Validator.isEmpty(receiveAddressId)){
+			//返回添加地址的页面
+			return "addAddress";
+		}*/
 
 		// 获取所有购物车
 		List<OmsCartItem> cartList = cartService.getCartListByMemberId(memberId);

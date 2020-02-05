@@ -52,13 +52,15 @@ public class PaymentController {
 		paymentInfo.setAlipayTradeNo("这是支付宝返回的交易编号");
 		paymentInfo.setConfirmTime(new Date());		//提交时间
 
-		paymentService.updatePaymentInfoByOutTradeNo(paymentInfo);
-
-
 		//支付成功后，引起的系统服务——>订单服务更新——>库存服务——>物流服务
 		//调用mq发送支付成功的消息
+		paymentService.updatePaymentInfoByOutTradeNo(paymentInfo);
 
-		model.addAttribute("paymentStatus",paymentStatus);
+		if(paymentStatus.equals("1")){
+			model.addAttribute("paymentStatus","支付成功");
+		}else if(paymentStatus.equals("6")){
+			model.addAttribute("paymentStatus","支付失败");
+		}
 		return "finish";
 	}
 
@@ -95,6 +97,9 @@ public class PaymentController {
 		model.addAttribute("out_trade_no",outTradeNo);	//订单号
 		model.addAttribute("subject",subject);			//商品信息
 		model.addAttribute("total_amount",totalAmount);		//支付金额
+
+		//向消息中间件发送一个检查支付状态（支付服务消费）的延迟消息队列
+		paymentService.sendDelayPaymentResulQueue(outTradeNo,5);
 
 
 		// 提交请求到支付页面*/

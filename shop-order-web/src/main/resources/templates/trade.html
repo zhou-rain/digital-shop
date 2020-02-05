@@ -152,9 +152,14 @@
             $(function() {
 
                 $("#submitButton").click(function () {
-                   $("#receiveAddressId").val($("input[name='receiveAddress']:checked").val());
-                   $("#orderComment").val($("#orderCommentPage").val());
-                   $("#orderForm").submit();
+                    let receiveAddressId = $("input[name='receiveAddress']:checked").val();
+                    if(receiveAddressId===undefined){
+                        alert("收货地址为空，展示新增地址的提示")
+                    }else {
+                        $("#receiveAddressId").val(receiveAddressId);
+                        $("#orderComment").val($("#orderCommentPage").val());
+                        $("#orderForm").submit();
+                    }
 
                 });
 
