@@ -7,6 +7,7 @@ import com.bat.qmall.exception.EmptyException;
 import com.bat.qmall.exception.ErrException;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author: zhouR
@@ -47,4 +48,11 @@ public interface AttrService  {
 	 * @return
 	 */
 	void delBatch(String attrId) throws ErrException, EmptyException;
+
+	/**
+	 * 根据平台属性id集合 查询出 平台属性值
+	 * @param valueIdSet
+	 * @return
+	 */
+	List<PmsBaseAttrInfo> getAttrValueListByValueId(Set<String> valueIdSet);
 }

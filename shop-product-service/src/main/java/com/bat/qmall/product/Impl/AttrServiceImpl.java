@@ -14,10 +14,12 @@ import com.bat.qmall.exception.EmptyException;
 import com.bat.qmall.exception.ErrException;
 import com.bat.qmall.utils.ArrayUtil;
 import com.bat.qmall.utils.Validator;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author: zhouR
@@ -62,6 +64,22 @@ public class AttrServiceImpl implements AttrService {
 		} catch (Exception e) {
 			throw new ErrException();
 		}
+
+	}
+
+	/**
+	 * 根据平台属性id集合 查询出 平台属性值
+	 * @param valueIdSet
+	 * @return
+	 */
+	@Override
+	public List<PmsBaseAttrInfo> getAttrValueListByValueId(Set<String> valueIdSet) {
+
+
+		String ids = StringUtils.join(valueIdSet, ",");
+
+		return pmsBaseAttrInfoMapper.selectAttrValueListByValueId(ids);
+
 
 	}
 

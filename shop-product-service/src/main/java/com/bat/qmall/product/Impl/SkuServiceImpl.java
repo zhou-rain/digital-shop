@@ -217,5 +217,30 @@ public class SkuServiceImpl implements SkuService {
 		return price.compareTo(pmsSkuInfo.getPrice())==0;
 	}
 
+	/**
+	 * 获取所有的sku
+	 * @return
+	 */
+	@Override
+	public List<PmsSkuInfo> getAll() {
+		//获取所有skuInfo
+		List<PmsSkuInfo> pmsSkuInfos = pmsSkuInfoMapper.selectList(null);
+
+		//将 skuInfo中的list<PmsSkuAttrValue>赋值
+
+		for (PmsSkuInfo pmsSkuInfo : pmsSkuInfos) {
+			String skuId = pmsSkuInfo.getId();
+			PmsSkuAttrValue pmsSkuAttrValue = new PmsSkuAttrValue();
+			pmsSkuAttrValue.setSkuId(skuId);
+			QueryWrapper<PmsSkuAttrValue> wrapper = new QueryWrapper<>(pmsSkuAttrValue);
+			List<PmsSkuAttrValue> pmsSkuAttrValues = pmsSkuAttrValueMapper.selectList(wrapper);
+
+			pmsSkuInfo.setSkuAttrValueList(pmsSkuAttrValues);
+		}
+
+
+		return pmsSkuInfos;
+	}
+
 
 }

@@ -37,4 +37,10 @@ public interface SkuService {
 	List<PmsSkuInfo> getSkuSaleAttrValueListBySpu(String productId);
 
 	boolean checkPrice(String productSkuId, BigDecimal price);
+
+	/**
+	 * 获取所有的sku
+	 * @return
+	 */
+	List<PmsSkuInfo> getAll();
 }

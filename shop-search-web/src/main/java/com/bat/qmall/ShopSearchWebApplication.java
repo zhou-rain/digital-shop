@@ -1,11 +1,11 @@
-package com.bat.qmall.search;
+package com.bat.qmall;
 
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- *   8887/search
+ *   search.qmall.com:8887/index
  */
 @SpringBootApplication
 @EnableDubbo

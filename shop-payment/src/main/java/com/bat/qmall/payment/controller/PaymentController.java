@@ -1,7 +1,6 @@
 package com.bat.qmall.payment.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.bat.qmall.Const.OmsConst;
 import com.bat.qmall.annotations.LoginRequired;
 import com.bat.shop.api.bean.oms.OmsOrder;
 import com.bat.shop.api.bean.pay.PaymentInfo;
@@ -28,7 +27,6 @@ public class PaymentController {
 	PaymentService paymentService;
 	@Reference
 	OrderService orderService;
-
 
 	/**
 	 * 流程：
@@ -78,7 +76,6 @@ public class PaymentController {
 	public String alipay(String outTradeNo, BigDecimal totalAmount,Model model){
 
 		String subject = getSubjectByOutTradeNo(outTradeNo);
-
 		OmsOrder omsOrder = orderService.getOrderByOutTradeNo(outTradeNo);
 
 		if(omsOrder!=null){
@@ -91,7 +88,6 @@ public class PaymentController {
 			paymentInfo.setSubject(subject);
 			paymentInfo.setTotalAmount(totalAmount);
 			paymentService.savePaymentInfo(paymentInfo);
-
 		}
 
 		model.addAttribute("out_trade_no",outTradeNo);	//订单号
@@ -100,7 +96,6 @@ public class PaymentController {
 
 		//向消息中间件发送一个检查支付状态（支付服务消费）的延迟消息队列
 		paymentService.sendDelayPaymentResulQueue(outTradeNo,5);
-
 
 		// 提交请求到支付页面*/
 		return "pay";
@@ -134,7 +129,6 @@ public class PaymentController {
 	 * @return
 	 */
 	private String getSubjectByOutTradeNo(String outTradeNo){
-
 		return "这是商品信息简述"+outTradeNo;
 	}
 }
