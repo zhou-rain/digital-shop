@@ -54,7 +54,7 @@
         <!--功能组件-->
         <joda-time.version>2.9.9</joda-time.version><!--时间日期操作-->
         <httpclient.version>4.5.3</httpclient.version> <!--httpclient-->
-        <poi.version>3.16</poi.version> <!-- Excel导入导出-->
+        <poi.version>3.17</poi.version> <!-- Excel导入导出-->
         <quartz.version>2.2.3</quartz.version> <!-- 任务调度-->
         <!--流程框架-->
         <activiti.version>5.22.0</activiti.version>
