@@ -69,7 +69,7 @@
         <lombok.version>1.18.10</lombok.version>
 
         <!--shiro-->
-        <shiro.version>1.4.0</shiro.version>
+        <shiro.version>1.8.0</shiro.version>
         <!--Encache 缓存 -->
         <ehcache.version>2.10.2</ehcache.version>
         <shiro-ehcache.version>1.4.0</shiro-ehcache.version>
