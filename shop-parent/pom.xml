@@ -31,7 +31,7 @@
 
         <!--jackson-->
         <jackson.version>2.9.9</jackson.version>
-        <fastjson-version>1.2.49</fastjson-version>
+        <fastjson-version>1.2.83</fastjson-version>
 
         <!--公共依赖，版本控制-->
         <commons-io.version>2.5</commons-io.version>
